@@ -1,5 +1,8 @@
 #!/bin/bash
 #A simple installscript that makes (re)installing tools a lot easier
+#uncomment the functions you need
+#@author Rene Bisperink
+#@version 0.1
 
 defaultinstall.sh () {
 	#installfromapt;
