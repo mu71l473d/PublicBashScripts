@@ -9,8 +9,8 @@ defaultinstall.sh () {
 	#installgrub;
 	clonegitrepos;
 	#installspotify;
-	installptf;
-	installwine;
+	#installptf;
+	#installwine;
 	installsumatrapdf;
 }
 
@@ -69,8 +69,12 @@ installwine () {
 }
 
 installsumatrapdf () {
-installwine;
-
+	installwine;
+	mkdir ~/Github
+	cd ~/Github/ 
+	git clone https://github.com/mu71l473d/SumatraPDF.git
+	cd ./SumatraPDF
+	sudo cp SumatraPDF.desktop /usr/share/applications/
 }
 
 
