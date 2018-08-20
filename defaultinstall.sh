@@ -1,16 +1,17 @@
 #!/bin/bash
-#A simple installscript that makes (re)installing tools a lot easier
+#A simple installscript that makes (re)installing tools a lot easier. For now it only works on Ubuntu/Debian based systems.
 #uncomment the functions you need
 #@author Rene Bisperink
 #@version 0.1
 
 defaultinstall.sh () {
-	#installfromapt;
+	installfromapt;
 	#installgrub;
-	#clonegitrepos;
+	clonegitrepos;
 	#installspotify;
-	#installwine;
-	#installsumatrapdf
+	installptf;
+	installwine;
+	installsumatrapdf;
 }
 
 
@@ -18,13 +19,13 @@ defaultinstall.sh () {
 installfromapt () {
 	sudo apt update;
 	sudo apt upgrade;
-	sudo apt install git python python3 qbittorrent eclipse thunderbird tor vlc cherrytree; 
+	sudo apt install git gdb gcc python python3 qbittorrent eclipse thunderbird tor vlc cherrytree; 
 }
 
 
 clonegitrepos () {
-	sudo mkdir  ~/scripts/
-	cd ~/scripts
+	sudo mkdir  ~/Github/
+	cd ~/Github
 	git config --global user.name "mu71l473d"
 	git config --global credential.helper cache
 	git clone https://github.com/mu71l473d/PublicBashScripts.git;
@@ -41,12 +42,19 @@ clonegitrepos () {
 	git clone https://github.com/mu71l473d/nodejs-cert.git;
 }
 
+installptf () {
+	cd ~
+	git clone https://github.com/trustedsec/ptf.git
+	./ptf
+	#use modules/install_update_all
+	#yes
+}
+
 installspotify () {
 	sudo apt-add-repository -y "deb http://repository.spotify.com stable non-free" &&
         sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59 &&
         sudo apt-get update &&
         sudo apt-get install spotify-client -y --allow-unauthenticated
-
 }
  
 
@@ -61,7 +69,8 @@ installwine () {
 }
 
 installsumatrapdf () {
-#WIP
+installwine;
+
 }
 
 
