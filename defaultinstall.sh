@@ -7,8 +7,8 @@
 defaultinstall.sh () {
 	installfromapt;
 	#installgrub;
-	clonegitrepos;
-	installspotify;
+	#clonegitrepos;
+	#installspotify;
 	#installptf;
 	#installwine;
 	#installsumatrapdf;
