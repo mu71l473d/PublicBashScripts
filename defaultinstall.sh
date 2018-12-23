@@ -8,10 +8,10 @@ defaultinstall.sh () {
 	installfromapt;
 	#installgrub;
 	clonegitrepos;
-	#installspotify;
+	installspotify;
 	#installptf;
 	#installwine;
-	installsumatrapdf;
+	#installsumatrapdf;
 }
 
 
@@ -19,7 +19,7 @@ defaultinstall.sh () {
 installfromapt () {
 	sudo apt update;
 	sudo apt upgrade;
-	sudo apt install git gdb gcc python python3 qbittorrent eclipse thunderbird tor vlc cherrytree; 
+	sudo apt install git gdb gcc python python3 qbittorrent eclipse thunderbird vlc cherrytree torbrowser-launcher wine-stable; 
 }
 
 
@@ -51,29 +51,32 @@ installptf () {
 }
 
 installspotify () {
-	sudo apt-add-repository -y "deb https://repository.spotify.com stable non-free" &&
-        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59 &&
-        sudo apt-get update &&
-        sudo apt-get install spotify-client -y --allow-unauthenticated
+	# 1. Add the Spotify repository signing keys to be able to verify downloaded packages
+	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
+
+	# 2. Add the Spotify repository
+	echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
+
+	# 3. Update list of available packages
+	sudo apt update
+
+	# 4. Install Spotify
+	sudo apt install spotify-client -y 
 }
  
 
 installwine () {
-	sudo dpkg --add-architecture i386
-	wget -nc https://dl.winehq.org/wine-builds/Release.key
-	sudo apt-key add Release.key
-	sudo apt-add-repository https://dl.winehq.org/wine-builds/ubuntu/
-	sudo apt update
-	sudo apt-get install --install-recommends winehq-stable
+	sudo apt update && sudo apt upgrade
+	sudo apt install wine-stable
 	winecfg
 }
 
 installsumatrapdf () {
 	installwine;
-	mkdir ~/Github
-	cd ~/Github/ 
+	cd /opt/
 	git clone https://github.com/mu71l473d/SumatraPDF.git
-	cd ./SumatraPDF
+	sudo chown mu71l473d:mu71l473d ./SumatraPDF
+	cd ./SumatraPDF/
 	sudo cp SumatraPDF.desktop /usr/share/applications/
 }
 
