@@ -40,6 +40,7 @@ clonegitrepos () {
 	git clone https://github.com/mu71l473d/hacking-taoe.git;
 	git clone https://github.com/mu71l473d/SecurityManagement.git;
 	git clone https://github.com/mu71l473d/nodejs-cert.git;
+	git clone https://github.com/mu71l473d/PublicPythonScripts.git
 }
 
 installptf () {
