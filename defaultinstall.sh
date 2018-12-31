@@ -41,6 +41,9 @@ clonegitrepos () {
 	git clone https://github.com/mu71l473d/SecurityManagement.git;
 	git clone https://github.com/mu71l473d/nodejs-cert.git;
 	git clone https://github.com/mu71l473d/PublicPythonScripts.git
+	
+	sudo cp ./BashScripts/uploadtogithub.sh .
+	
 }
 
 installptf () {
