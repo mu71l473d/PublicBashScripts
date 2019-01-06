@@ -5,13 +5,14 @@
 #@version 0.1
 
 defaultinstall.sh () {
-	installfromapt;
+	#installfromapt;
 	#installgrub;
 	#clonegitrepos;
 	#installspotify;
 	#installptf;
 	#installwine;
 	#installsumatrapdf;
+	installvmware;
 }
 
 
@@ -91,5 +92,14 @@ installgrub () {
 	grub-mkinstall;
 	sudo update-grub;
 }
+
+installvmware () {
+wget -O ~/vmware.bin https://www.vmware.com/go/getworkstation-linux
+sudo apt install build-essential
+sudo bash ~/vmware.bin
+
+
+}
+
 
 defaultinstall.sh
