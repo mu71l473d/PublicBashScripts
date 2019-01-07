@@ -20,7 +20,7 @@ defaultinstall.sh () {
 installfromapt () {
 	sudo apt update;
 	sudo apt upgrade;
-	sudo apt install git gdb gcc python3 qbittorrent eclipse thunderbird vlc cherrytree torbrowser-launcher wine-stable; 
+	sudo apt install git gdb gcc python3 qbittorrent eclipse thunderbird vlc cherrytree torbrowser-launcher wine-stable p7zip-full p7zip-rar; 
 }
 
 
