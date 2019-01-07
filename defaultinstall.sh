@@ -12,7 +12,8 @@ defaultinstall.sh () {
 	#installptf;
 	#installwine;
 	#installsumatrapdf;
-	installvmware;
+	#installvmware;
+	installdropbox;
 }
 
 
@@ -98,6 +99,13 @@ wget -O ~/vmware.bin https://www.vmware.com/go/getworkstation-linux
 sudo apt install build-essential
 sudo bash ~/vmware.bin
 
+
+}
+
+installdropbox () {
+cd ~/Downloads
+wget -O - https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2018.11.28_amd64.deb
+sudo dpkg -i dropbox_2018.11.28_amd64.deb
 
 }
 
