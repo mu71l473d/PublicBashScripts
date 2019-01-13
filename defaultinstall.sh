@@ -95,9 +95,11 @@ installgrub () {
 }
 
 installvmware () {
+    cd ~/Downloads
     wget -O ~/vmware.bin https://www.vmware.com/go/getworkstation-linux
     sudo apt install build-essential
-    sudo bash ~/vmware.bin
+    sudo apt --fix-broken install
+    sudo bash ~/Downloads/vmware.bin
 }
 
 installdropbox () {
