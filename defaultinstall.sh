@@ -21,7 +21,7 @@ defaultinstall.sh () {
 installfromapt () {
 	sudo apt update;
 	sudo apt upgrade;
-	sudo apt install git gdb gcc python3 qbittorrent eclipse thunderbird vlc cherrytree torbrowser-launcher wine-stable p7zip-full p7zip-rar; 
+	sudo apt install git gdb gcc python3 qbittorrent eclipse thunderbird vlc curl cherrytree torbrowser-launcher wine-stable p7zip-full p7zip-rar; 
 }
 
 
@@ -44,6 +44,8 @@ clonegitrepos () {
 	git clone https://github.com/mu71l473d/nodejs-cert.git;
 	git clone https://github.com/mu71l473d/PublicPythonScripts.git
 	git clone https://github.com/mu71l473d/mu71l473d.github.io.git
+	git clone https://github.com/mu71l473d/PublicPowerShellScripts.git
+
 	
 	sudo cp ./BashScripts/uploadtogithub.sh .
 	
