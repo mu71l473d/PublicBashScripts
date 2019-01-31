@@ -86,7 +86,6 @@ sudo git push
 
 echo "Books and booknotes"
 cd /media/mu71l473d/Datadisk/books/
-sudo git pull
 sudo git add *
 sudo git commit -m "new version"
 sudo git push
