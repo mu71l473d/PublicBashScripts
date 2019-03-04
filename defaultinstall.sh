@@ -46,7 +46,7 @@ clonegitrepos () {
 	git clone https://github.com/mu71l473d/PublicPythonScripts.git
 	git clone https://github.com/mu71l473d/mu71l473d.github.io.git
 	git clone https://github.com/mu71l473d/PublicPowerShellScripts.git
-
+	git clone https://github.com/mu71l473d/MagicMirror.git
 	
 	sudo cp ./BashScripts/uploadtogithub.sh .
 	
