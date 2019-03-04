@@ -97,5 +97,10 @@ sudo git add *
 sudo git commit -m "new version"
 sudo git push
 
-
+echo "MagicMirror"
+cd ~/Github/MagicMirror
+sudo git pull
+sudo git add *
+sudo git commit -m "new version"
+sudo git push
 echo "Done"
