@@ -3,7 +3,7 @@ DOMAIN=www.example.org
 COUNTRY=NL
 STATE=Overijssel
 LOCALITY=Enschede
-ORGANIZATION=example.og
+ORGANIZATION=example.org
 OU=IT
 EMAIL=administrator@example.org
 
