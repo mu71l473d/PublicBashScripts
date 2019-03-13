@@ -25,7 +25,7 @@ PASSWORD=$1
 fi
 
 #generate a key
-openssl genrsa -des3 -passout pass:$PASSWORD -out $DOMAIN.key 2048 -noout
+openssl genrsa -aes256 -passout pass:$PASSWORD -out $DOMAIN.key 4096 -noout
 
 #Remove passphrase from the key. Comment the line out to keep the passphrase
 #echo "Removing passphrase from key"
