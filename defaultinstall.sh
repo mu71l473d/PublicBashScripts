@@ -5,7 +5,7 @@
 #@version 0.1
 
 defaultinstall.sh () {
-	#installfromapt;
+	installfromapt;
 	#installgrub;
 	#clonegitrepos;
 	#installspotify;
@@ -14,7 +14,7 @@ defaultinstall.sh () {
 	#installsumatrapdf;
 	#installvmware;
 	#installdropbox;
-	installsignal;
+	#installsignal;
 }
 
 
@@ -22,7 +22,7 @@ defaultinstall.sh () {
 installfromapt () {
 	sudo apt update;
 	sudo apt upgrade;
-	sudo apt install git gdb gcc python3 qbittorrent eclipse thunderbird vlc curl cherrytree torbrowser-launcher wine-stable p7zip-full p7zip-rar; 
+	sudo apt install git gdb gcc python3 qbittorrent cmake make thunderbird vlc curl cherrytree torbrowser-launcher wine-stable p7zip-full p7zip-rar; 
 }
 
 
@@ -47,6 +47,7 @@ clonegitrepos () {
 	git clone https://github.com/mu71l473d/mu71l473d.github.io.git
 	git clone https://github.com/mu71l473d/PublicPowerShellScripts.git
 	git clone https://github.com/mu71l473d/MagicMirror.git
+	git clone https://github.com/mu71l473d/CProgrammingLanguage.git
 	
 	sudo cp ./BashScripts/uploadtogithub.sh .
 	
