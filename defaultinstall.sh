@@ -29,7 +29,7 @@ installfromapt () {
 }
 
 installpentest () {
-	sudo apt install exiftool wireshark
+	sudo apt install exiftool wireshark tmux
 }
 
 installvbguest () {
