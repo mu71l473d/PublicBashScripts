@@ -5,12 +5,12 @@
 #@version 0.1
 
 defaultinstall.sh () {
-	installfromapt;
+	#installfromapt;
 	#installgrub;
-	clonegitrepos;
+	#clonegitrepos;
 	#installspotify;
 	#installptf;
-	#installwine;
+	installwine;
 	#installsumatrapdf;
 	#installvmware;
 	#installdropbox;
