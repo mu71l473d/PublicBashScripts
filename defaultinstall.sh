@@ -5,14 +5,14 @@
 #@version 0.1
 
 defaultinstall.sh () {
-	update;
-	installfromapt;
+	#update;
+	#installfromapt;
 	#installfromaptgui;
-	installpentest;
+	#installpentest;
 	#installvbguest;
-	installvmwareguest;			
+	#installvmwareguest;			
 	#installgrub;
-	#clonegitrepos;
+	clonegitrepos;
 	#installspotify;
 	#installptf;
 	#installwine;
@@ -28,12 +28,12 @@ update () {
 }
 
 installfromapt () {
-	update;
+	#update;
 	sudo apt install git gdb gcc python3 cmake make curl p7zip-full p7zip-rar; 
 }
 
 installfromaptgui () {
-	update;	
+	#update;	
 	sudo apt install qbittorrent thunderbird vlc cherrytree torbrowser-laucher wine-stable
 }
 
