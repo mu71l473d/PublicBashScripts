@@ -6,6 +6,7 @@
 
 defaultinstall.sh () {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	#installfromapt;
 =======
 	installfromapt;
@@ -13,8 +14,16 @@ defaultinstall.sh () {
 	installvbguest;
 	installvmwareguest;			
 >>>>>>> 8466c18d2a8908059f3b1d3e50d4bde8fc70739c
+=======
+	#update;
+	#installfromapt;
+	#installfromaptgui;
+	#installpentest;
+	#installvbguest;
+	#installvmwareguest;			
+>>>>>>> e5378232631b09a8ac36705795350f16cdf660c6
 	#installgrub;
-	#clonegitrepos;
+	clonegitrepos;
 	#installspotify;
 	#installptf;
 	installwine;
@@ -24,12 +33,19 @@ defaultinstall.sh () {
 	#installsignal;
 }
 
-
+update () {
+	sudo apt update
+	sudo apt upgrade
+}
 
 installfromapt () {
-	sudo apt update;
-	sudo apt upgrade;
-	sudo apt install git gdb gcc python3 qbittorrent  cmake make thunderbird vlc curl cherrytree torbrowser-launcher wine-stable p7zip-full p7zip-rar; 
+	#update;
+	sudo apt install git gdb gcc python3 cmake make curl p7zip-full p7zip-rar; 
+}
+
+installfromaptgui () {
+	#update;	
+	sudo apt install qbittorrent thunderbird vlc cherrytree torbrowser-laucher wine-stable
 }
 
 installpentest () {
@@ -83,7 +99,8 @@ installptf () {
 installsignal () {
 	curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
 	echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
-	sudo apt update && sudo apt install signal-desktop
+	update;
+	sudo apt install signal-desktop
 }
 
 installspotify () {
@@ -94,7 +111,7 @@ installspotify () {
 	echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
 
 	# 3. Update list of available packages
-	sudo apt update
+	update;
 
 	# 4. Install Spotify
 	sudo apt install spotify-client -y 
