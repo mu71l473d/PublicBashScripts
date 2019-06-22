@@ -42,15 +42,8 @@ sudo git add *
 sudo git commit -m "new version"
 sudo git push
 
-echo "nodejs-cert"
-cd ~/Github/nodejs-cert
-sudo git pull
-sudo git add *
-sudo git commit -m "new version"
-sudo git push
-
 echo "PowershellScripts"
-cd ~/Github/PowershellScripts
+cd ~/Github/Powershellscripts
 sudo git pull
 sudo git add *
 sudo git commit -m "new version"
@@ -70,20 +63,6 @@ sudo git add *
 sudo git commit -m "new version"
 sudo git push
 
-echo "SecurityManagement"
-cd ~/Github/SecurityManagement
-sudo git pull
-sudo git add *
-sudo git commit -m "new version"
-sudo git push
-
-echo "TTN-private-routing"
-cd ~/Github/TTN-private-routing
-sudo git pull
-sudo git add *
-sudo git commit -m "new version"
-sudo git push
-
 echo "Books and booknotes"
 cd /media/mu71l473d/Datadisk/books/
 sudo git add *
@@ -98,4 +77,4 @@ sudo git commit -m "new version"
 sudo git push
 
 
-echo "Done"
+echo "Done with Uploading"
