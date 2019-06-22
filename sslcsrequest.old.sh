@@ -1,11 +1,11 @@
 #!/bin/bash
-DOMAIN=www.nietdebelastingdienst.nl
+DOMAIN=www.example.org
 COUNTRY=NL
-STATE=Gelderland
-LOCALITY=Apeldoorn
-ORGANIZATION=SOC
-OU=Soc
-EMAIL=administrator@nietdebelastingdienst.nl
+STATE=Overijssel
+LOCALITY=Enschede
+ORGANIZATION=example.org
+OU=IT
+EMAIL=administrator@example.org
 
 
 # TODO: Improvements that can be added in the future: It is better to pass the password through an ENV  
@@ -17,39 +17,27 @@ EMAIL=administrator@nietdebelastingdienst.nl
 PASSWORD=mypassword #TODO
 
 
-main () {
-generateaes;
-#generateecdsa;
-#generatecsr;
-}
+if( -z "$1" ) 
+then
+PASSWORD=mypassword
+else
+PASSWORD=$1
+fi
 
-generateaes () {
 #generate a key
 openssl genrsa -aes256 -passout pass:$PASSWORD -out $DOMAIN.key 4096 -noout
 
 #Remove passphrase from the key. Comment the line out to keep the passphrase
 #echo "Removing passphrase from key"
-openssl rsa -in $DOMAIN.key -passin pass:$PASSWORD -out $DOMAIN.key
-
-generatecsr;
-}
+#openssl rsa -in $DOMAIN.key -passin pass:$PASSWORD -out $DOMAIN.key
 
 
-generateecdsa () {
-openssl ecparam -list_curves
 
-openssl ecparam -name secp521r1 -genkey -key -noout -out $DOMAIN.pem
-
-generatecsr;
-
-}
-
-generatecsr () {
 #Create the request
 echo "Creating CSR"
 openssl req -new -key $DOMAIN.key -out $DOMAIN.csr -passin pass:$PASSWORD \
     -subj "/C=$COUNTRY/ST=$STATE/L=$LOCALITY/O=$ORGANIZATION/OU=$OU/CN=$DOMAIN/emailAddress=$EMAIL" #TODO: Add a default folder
-}
+
 #assign rights
 chmod 600 *.key *.csr 
 

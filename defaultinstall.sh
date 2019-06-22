@@ -5,9 +5,14 @@
 #@version 0.1
 
 defaultinstall.sh () {
+	#update;
 	installfromapt;
+	installfromaptgui;
+	#installpentest;
+	#installvbguest;
+	#installvmwareguest;			
 	#installgrub;
-	clonegitrepos;
+	#11clonegitrepos;
 	#installspotify;
 	#installptf;
 	#installwine;
@@ -19,10 +24,35 @@ defaultinstall.sh () {
 
 
 
+update () {
+	sudo apt update
+	sudo apt upgrade
+}
+
+installfirefoxdev() {
+
+}
+
 installfromapt () {
-	sudo apt update;
-	sudo apt upgrade;
-	sudo apt install git gdb gcc python3 qbittorrent cmake make thunderbird vlc curl cherrytree torbrowser-launcher wine-stable p7zip-full p7zip-rar; 
+	#update;
+	sudo apt install git gdb gcc python3 cmake make curl p7zip-full p7zip-rar; 
+}
+
+installfromaptgui () {
+	#update;	
+	sudo apt install qbittorrent thunderbird vlc cherrytree torbrowser-laucher wine-stable
+}
+
+installpentest () {
+	sudo apt install exiftool wireshark tmux
+}
+
+installvbguest () {
+	apt install build-essential dkms
+}
+
+installvmwareguest () {
+sudo apt install open-vm-tools
 }
 
 
@@ -38,10 +68,8 @@ clonegitrepos () {
 	git clone https://github.com/mu71l473d/PythonScripts.git;
 	git clone https://github.com/mu71l473d/PowershellScripts.git;
 	git clone https://github.com/mu71l473d/BanditChallenge.git;
-	git clone https://github.com/mu71l473d/TTN-private-routing.git;
 	git clone https://github.com/mu71l473d/JavaProjects.git;
 	git clone https://github.com/mu71l473d/hacking-taoe.git;
-	git clone https://github.com/mu71l473d/SecurityManagement.git;
 	git clone https://github.com/mu71l473d/nodejs-cert.git;
 	git clone https://github.com/mu71l473d/PublicPythonScripts.git;
 	git clone https://github.com/mu71l473d/mu71l473d.github.io.git;
@@ -64,7 +92,8 @@ installptf () {
 installsignal () {
 	curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
 	echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
-	sudo apt update && sudo apt install signal-desktop
+	update;
+	sudo apt install signal-desktop
 }
 
 installspotify () {
@@ -75,7 +104,7 @@ installspotify () {
 	echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
 
 	# 3. Update list of available packages
-	sudo apt update
+	update;
 
 	# 4. Install Spotify
 	sudo apt install spotify-client -y 
@@ -120,3 +149,4 @@ installdropbox () {
 
 
 defaultinstall.sh
+
