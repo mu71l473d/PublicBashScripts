@@ -43,13 +43,13 @@ clonegitrepos () {
 	git clone https://github.com/mu71l473d/hacking-taoe.git;
 	git clone https://github.com/mu71l473d/SecurityManagement.git;
 	git clone https://github.com/mu71l473d/nodejs-cert.git;
-	git clone https://github.com/mu71l473d/PublicPythonScripts.git
-	git clone https://github.com/mu71l473d/mu71l473d.github.io.git
-	git clone https://github.com/mu71l473d/PublicPowerShellScripts.git
-	git clone https://github.com/mu71l473d/MagicMirror.git
-	git clone https://github.com/mu71l473d/CProgrammingLanguage.git
+	git clone https://github.com/mu71l473d/PublicPythonScripts.git;
+	git clone https://github.com/mu71l473d/mu71l473d.github.io.git;
+	git clone https://github.com/mu71l473d/PublicPowerShellScripts.git;
+	git clone https://github.com/mu71l473d/MagicMirror.git;
+	git clone https://github.com/mu71l473d/CProgrammingLanguage.git;
 	
-	sudo cp ./BashScripts/uploadtogithub.sh .
+	sudo ln -s ./BashScripts/uploadtogithub.sh .
 	
 }
 
