@@ -1,81 +1,59 @@
 #!/bin/bash
 
-echo "BashScripts"
-cd ~/Github/BashScripts
+update () {
 sudo git pull
 sudo git add *
 sudo git commit -m "new version"
 sudo git push
+echo "Done"
+echo ""
+echo ""
+}
+
+
+
+echo "BashScripts"
+cd ~/Github/BashScripts
+update;
 
 echo "PublicBashScripts"
 cd ~/Github/PublicBashScripts
-sudo git pull
-sudo git add *
-sudo git commit -m "new version"
-sudo git push
+update;
 
 echo "BanditChallenge"
 cd ~/Github/BanditChallenge
-sudo git pull
-sudo git add *
-sudo git commit -m "new version"
-sudo git push
+update;
 
 echo "GreyBlackHatPython"
 cd ~/Github/GreyBlackHatPython
-sudo git pull
-sudo git add *
-sudo git commit -m "new version"
-sudo git push
+update;
 
 echo "hacking-taoe"
 cd ~/Github/hacking-taoe
-sudo git pull
-sudo git add *
-sudo git commit -m "new version"
-sudo git push
+update;
 
 echo "JavaProjects"
 cd ~/Github/JavaProjects
-sudo git pull
-sudo git add *
-sudo git commit -m "new version"
-sudo git push
+update;
 
 echo "PowershellScripts"
 cd ~/Github/Powershellscripts
-sudo git pull
-sudo git add *
-sudo git commit -m "new version"
-sudo git push
+update;
 
 echo "PublicPythonScripts"
 cd ~/Github/PublicPythonScripts
-sudo git pull
-sudo git add *
-sudo git commit -m "new version"
-sudo git push
+update;
 
 echo "PythonScripts"
 cd ~/Github/PythonScripts
-sudo git pull
-sudo git add *
-sudo git commit -m "new version"
-sudo git push
+update;
 
 echo "Books and booknotes"
 cd /media/mu71l473d/Datadisk/books/
-sudo git pull
-sudo git add *
-sudo git commit -m "new version"
-sudo git push
+update;
 
 echo "PowershellScripts"
 cd ~/Github/PublicPowershellScripts
-sudo git pull
-sudo git add *
-sudo git commit -m "new version"
-sudo git push
-
+update;
 
 echo "Done with Uploading"

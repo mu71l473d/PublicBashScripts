@@ -36,7 +36,7 @@ installfromapt () {
 
 installfromaptgui () {
 	update;	
-	sudo apt install -y qbittorrent thunderbird vlc cherrytree torbrowser-laucher wine-stable
+	sudo apt install -y qbittorrent thunderbird vlc cherrytree wine-stable
 }
 
 installpentest () {
