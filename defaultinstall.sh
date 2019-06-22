@@ -5,7 +5,7 @@
 #@version 0.1
 
 defaultinstall.sh () {
-	#update;
+	update;
 	installfromapt;
 	installfromaptgui;
 	#installpentest;
@@ -29,10 +29,6 @@ update () {
 	sudo apt upgrade
 }
 
-installfirefoxdev() {
-
-}
-
 installfromapt () {
 	#update;
 	sudo apt install git gdb gcc python3 cmake make curl p7zip-full p7zip-rar; 
@@ -52,7 +48,7 @@ installvbguest () {
 }
 
 installvmwareguest () {
-sudo apt install open-vm-tools
+	sudo apt install open-vm-tools
 }
 
 
@@ -70,7 +66,6 @@ clonegitrepos () {
 	git clone https://github.com/mu71l473d/BanditChallenge.git;
 	git clone https://github.com/mu71l473d/JavaProjects.git;
 	git clone https://github.com/mu71l473d/hacking-taoe.git;
-	git clone https://github.com/mu71l473d/nodejs-cert.git;
 	git clone https://github.com/mu71l473d/PublicPythonScripts.git
 	git clone https://github.com/mu71l473d/mu71l473d.github.io.git
 	git clone https://github.com/mu71l473d/PublicPowerShellScripts.git
