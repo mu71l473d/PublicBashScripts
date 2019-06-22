@@ -5,7 +5,14 @@
 #@version 0.1
 
 defaultinstall.sh () {
+<<<<<<< HEAD
 	#installfromapt;
+=======
+	installfromapt;
+	installpentest;
+	installvbguest;
+	installvmwareguest;			
+>>>>>>> 8466c18d2a8908059f3b1d3e50d4bde8fc70739c
 	#installgrub;
 	#clonegitrepos;
 	#installspotify;
@@ -22,7 +29,19 @@ defaultinstall.sh () {
 installfromapt () {
 	sudo apt update;
 	sudo apt upgrade;
-	sudo apt install git gdb gcc python3 qbittorrent cmake make thunderbird vlc curl cherrytree torbrowser-launcher wine-stable p7zip-full p7zip-rar; 
+	sudo apt install git gdb gcc python3 qbittorrent  cmake make thunderbird vlc curl cherrytree torbrowser-launcher wine-stable p7zip-full p7zip-rar; 
+}
+
+installpentest () {
+	sudo apt install exiftool wireshark tmux
+}
+
+installvbguest () {
+	apt install build-essential dkms
+}
+
+installvmwareguest () {
+sudo apt install open-vm-tools
 }
 
 
