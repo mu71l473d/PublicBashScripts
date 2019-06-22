@@ -30,13 +30,13 @@ update () {
 }
 
 installfromapt () {
-	#update;
-	sudo apt install git gdb gcc python3 cmake make curl p7zip-full p7zip-rar; 
+	update;
+	sudo apt install -y git gdb gcc python3 cmake make curl p7zip-full p7zip-rar; 
 }
 
 installfromaptgui () {
-	#update;	
-	sudo apt install qbittorrent thunderbird vlc cherrytree torbrowser-laucher wine-stable
+	update;	
+	sudo apt install -y qbittorrent thunderbird vlc cherrytree torbrowser-laucher wine-stable
 }
 
 installpentest () {
@@ -122,8 +122,11 @@ installsumatrapdf () {
 	cd /opt/
 	git clone https://github.com/mu71l473d/SumatraPDF.git
 	sudo chown mu71l473d:mu71l473d ./SumatraPDF
-	cd ./SumatraPDF/
-	sudo cp SumatraPDF.desktop /usr/share/applications/
+	cd ./SumatraPDF
+	mv Sumatra*.exe SumatraPDF.exe
+	mv sumatra*.exe SumatraPDF.exe
+	cd ~/Desktop
+
 }
 
 
