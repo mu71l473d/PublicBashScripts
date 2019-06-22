@@ -5,37 +5,32 @@
 #@version 0.1
 
 defaultinstall.sh () {
-<<<<<<< HEAD
-<<<<<<< HEAD
-	#installfromapt;
-=======
-	installfromapt;
-	installpentest;
-	installvbguest;
-	installvmwareguest;			
->>>>>>> 8466c18d2a8908059f3b1d3e50d4bde8fc70739c
-=======
 	#update;
-	#installfromapt;
-	#installfromaptgui;
+	installfromapt;
+	installfromaptgui;
 	#installpentest;
 	#installvbguest;
 	#installvmwareguest;			
->>>>>>> e5378232631b09a8ac36705795350f16cdf660c6
 	#installgrub;
-	clonegitrepos;
+	#11clonegitrepos;
 	#installspotify;
 	#installptf;
-	installwine;
+	#installwine;
 	#installsumatrapdf;
 	#installvmware;
 	#installdropbox;
 	#installsignal;
 }
 
+
+
 update () {
 	sudo apt update
 	sudo apt upgrade
+}
+
+installfirefoxdev() {
+
 }
 
 installfromapt () {
@@ -73,10 +68,8 @@ clonegitrepos () {
 	git clone https://github.com/mu71l473d/PythonScripts.git;
 	git clone https://github.com/mu71l473d/PowershellScripts.git;
 	git clone https://github.com/mu71l473d/BanditChallenge.git;
-	git clone https://github.com/mu71l473d/TTN-private-routing.git;
 	git clone https://github.com/mu71l473d/JavaProjects.git;
 	git clone https://github.com/mu71l473d/hacking-taoe.git;
-	git clone https://github.com/mu71l473d/SecurityManagement.git;
 	git clone https://github.com/mu71l473d/nodejs-cert.git;
 	git clone https://github.com/mu71l473d/PublicPythonScripts.git
 	git clone https://github.com/mu71l473d/mu71l473d.github.io.git
@@ -156,3 +149,4 @@ installdropbox () {
 
 
 defaultinstall.sh
+
