@@ -29,14 +29,6 @@ update () {
 	sudo apt upgrade
 }
 
-<<<<<<< HEAD
-=======
-installfirefoxdev() {
-
-
-}
-
->>>>>>> 4f1a4b0f1d30374e4cea2c86c06b8b2e20cae12d
 installfromapt () {
 	#update;
 	sudo apt install git gdb gcc python3 cmake make curl p7zip-full p7zip-rar; 
@@ -74,22 +66,18 @@ clonegitrepos () {
 	git clone https://github.com/mu71l473d/BanditChallenge.git;
 	git clone https://github.com/mu71l473d/JavaProjects.git;
 	git clone https://github.com/mu71l473d/hacking-taoe.git;
-<<<<<<< HEAD
 	git clone https://github.com/mu71l473d/PublicPythonScripts.git
 	git clone https://github.com/mu71l473d/mu71l473d.github.io.git
 	git clone https://github.com/mu71l473d/PublicPowerShellScripts.git
 	git clone https://github.com/mu71l473d/MagicMirror.git
 	git clone https://github.com/mu71l473d/CProgrammingLanguage.git
-=======
-	git clone https://github.com/mu71l473d/nodejs-cert.git;
 	git clone https://github.com/mu71l473d/PublicPythonScripts.git;
 	git clone https://github.com/mu71l473d/mu71l473d.github.io.git;
 	git clone https://github.com/mu71l473d/PublicPowerShellScripts.git;
 	git clone https://github.com/mu71l473d/MagicMirror.git;
 	git clone https://github.com/mu71l473d/CProgrammingLanguage.git;
->>>>>>> 4f1a4b0f1d30374e4cea2c86c06b8b2e20cae12d
-	
-	sudo ln -s ./BashScripts/uploadtogithub.sh .
+
+	ln -s ./BashScripts/uploadtogithub.sh .
 	
 }
 
