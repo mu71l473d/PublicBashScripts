@@ -5,14 +5,15 @@
 #@version 0.1
 
 defaultinstall.sh () {
-	update;
-	installfromapt;
-	installfromaptgui;
+	#update;
+	#installfromapt;
+	#installfromaptgui;
 	#installpentest;
 	#installvbguest;
 	#installvmwareguest;			
 	#installgrub;
-	#11clonegitrepos;
+	#clonegitrepos;
+	configuregnomebar;
 	#installspotify;
 	#installptf;
 	#installwine;
@@ -40,15 +41,15 @@ installfromaptgui () {
 }
 
 installpentest () {
-	sudo apt install exiftool wireshark tmux
+	sudo apt install -y exiftool wireshark tmux
 }
 
 installvbguest () {
-	apt install build-essential dkms
+	apt install -y build-essential dkms
 }
 
 installvmwareguest () {
-	sudo apt install open-vm-tools
+	sudo apt install -y open-vm-tools
 }
 
 
@@ -87,6 +88,13 @@ installptf () {
 	./ptf
 	#use modules/install_update_all
 	#yes
+}
+
+configuregnomebar () {
+	#set bar to bottom
+	gsettings set org.gnome.shell.extensions.dash-to-dock dock-position BOTTOM
+	#set applications button to left
+	gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true
 }
 
 installsignal () {
