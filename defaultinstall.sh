@@ -5,14 +5,15 @@
 #@version 0.1
 
 defaultinstall.sh () {
-	update;
-	installfromapt;
-	installfromaptgui;
+	#update;
+	#installfromapt;
+	#installfromaptgui;
 	#installpentest;
 	#installvbguest;
 	#installvmwareguest;			
 	#installgrub;
-	#11clonegitrepos;
+	#clonegitrepos;
+	configuregnomebar;
 	#installspotify;
 	#installptf;
 	#installwine;
@@ -40,15 +41,15 @@ installfromaptgui () {
 }
 
 installpentest () {
-	sudo apt install exiftool wireshark tmux
+	sudo apt install -y exiftool wireshark tmux
 }
 
 installvbguest () {
-	apt install build-essential dkms
+	apt install -y build-essential dkms
 }
 
 installvmwareguest () {
-	sudo apt install open-vm-tools
+	sudo apt install -y open-vm-tools
 }
 
 
@@ -89,10 +90,25 @@ installptf () {
 	#yes
 }
 
+<<<<<<< HEAD
 installsublime () {
 	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 	echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 	sudo apt update && sudo apt upgrade
+=======
+configuregnomebar () {
+	#set bar to bottom
+	gsettings set org.gnome.shell.extensions.dash-to-dock dock-position BOTTOM
+	#set applications button to left
+	gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true
+}
+
+installsignal () {
+	curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+	echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+	update;
+	sudo apt install signal-desktop
+>>>>>>> be45037afb86459ad08908704ffdf1363ff13528
 }
 
 installspotify () {
