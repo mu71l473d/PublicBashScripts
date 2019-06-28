@@ -19,7 +19,7 @@ defaultinstall.sh () {
 	#installsumatrapdf;
 	#installvmware;
 	#installdropbox;
-	#installsignal;
+	#installsublime;
 }
 
 
@@ -31,7 +31,7 @@ update () {
 
 installfromapt () {
 	update;
-	sudo apt install -y git gdb gcc python3 cmake make curl p7zip-full p7zip-rar; 
+	sudo apt install -y apt-transport-https git gdb gcc python3 cmake make curl p7zip-full p7zip-rar; 
 }
 
 installfromaptgui () {
@@ -89,11 +89,10 @@ installptf () {
 	#yes
 }
 
-installsignal () {
-	curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
-	echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
-	update;
-	sudo apt install signal-desktop
+installsublime () {
+	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+	echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+	sudo apt update && sudo apt upgrade
 }
 
 installspotify () {
