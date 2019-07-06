@@ -41,7 +41,7 @@ installfromaptgui () {
 }
 
 installpentest () {
-	sudo apt install -y exiftool wireshark tmux
+	sudo apt install -y exiftool wireshark tmux seclists ftp php-curl python-smb mingw-w64
 }
 
 installvbguest () {
