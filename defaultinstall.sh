@@ -12,7 +12,7 @@ defaultinstall.sh () {
 	#installvbguest;
 	#installvmwareguest;			
 	#installgrub;
-	clonegitrepos;
+	#clonegitrepos;
 	#configuregnomebar;
 	#installspotify;
 	#installptf;
@@ -152,25 +152,26 @@ installgrub () {
 }
 
 installvmware () {
-    cd ~/Downloads
-    wget -O ~/vmware.bin https://www.vmware.com/go/getworkstation-linux
-    sudo apt install build-essential
-    sudo apt --fix-broken install
-    sudo bash ~/Downloads/vmware.bin
+   	cd ~/Downloads
+   	wget -O ~/vmware.bin https://www.vmware.com/go/getworkstation-linux
+    	sudo apt install build-essential
+    	sudo apt --fix-broken install
+    	sudo bash ~/Downloads/vmware.bin
 }
 
 installdropbox () {
-    cd ~/Downloads
-    wget -O - https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2018.11.28_amd64.deb
-    sudo dpkg -i dropbox_2018.11.28_amd64.deb
+    	cd ~/Downloads
+    	wget -O - https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2018.11.28_amd64.deb
+    	sudo dpkg -i dropbox_2018.11.28_amd64.deb
 }
 
 installhd () {
-xrandr --newmode "1920x1080"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
-xrandr --addmode Virtual1 1920x1080
-xrandr --output Virtual1 --mode 1920x1080
+        ##installs a 1080p mode for kali/ubuntu/etc.
+	xrandr --newmode "1920x1080"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
+	xrandr --addmode Virtual1 1920x1080
+	xrandr --output Virtual1 --mode 1920x1080
+
+	
 }
-
-
 defaultinstall.sh
 
