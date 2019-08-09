@@ -12,8 +12,8 @@ defaultinstall.sh () {
 	#installvbguest;
 	#installvmwareguest;			
 	#installgrub;
-	#clonegitrepos;
-	configuregnomebar;
+	clonegitrepos;
+	#configuregnomebar;
 	#installspotify;
 	#installptf;
 	#installwine;
@@ -21,6 +21,7 @@ defaultinstall.sh () {
 	#installvmware;
 	#installdropbox;
 	#installsublime;
+	installhd;
 }
 
 
@@ -78,7 +79,7 @@ clonegitrepos () {
 	git clone https://github.com/mu71l473d/MagicMirror.git;
 	git clone https://github.com/mu71l473d/CProgrammingLanguage.git;
 
-	ln -s ./BashScripts/uploadtogithub.sh .
+	ln -s ./PublicBashScripts/uploadtogithub.sh .
 	
 }
 
@@ -90,12 +91,12 @@ installptf () {
 	#yes
 }
 
-<<<<<<< HEAD
 installsublime () {
 	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 	echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 	sudo apt update && sudo apt upgrade
-=======
+}
+
 configuregnomebar () {
 	#set bar to bottom
 	gsettings set org.gnome.shell.extensions.dash-to-dock dock-position BOTTOM
@@ -108,7 +109,6 @@ installsignal () {
 	echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
 	update;
 	sudo apt install signal-desktop
->>>>>>> be45037afb86459ad08908704ffdf1363ff13528
 }
 
 installspotify () {
@@ -163,6 +163,12 @@ installdropbox () {
     cd ~/Downloads
     wget -O - https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2018.11.28_amd64.deb
     sudo dpkg -i dropbox_2018.11.28_amd64.deb
+}
+
+installhd () {
+xrandr --newmode "1920x1080"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
+xrandr --addmode Virtual1 1920x1080
+xrandr --output Virtual1 --mode 1920x1080
 }
 
 
