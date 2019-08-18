@@ -37,7 +37,7 @@ cd ~/Github/JavaProjects
 update;
 
 echo "PowershellScripts"
-cd ~/Github/Powershellscripts
+cd ~/Github/PowershellScripts
 update;
 
 echo "PublicPythonScripts"
