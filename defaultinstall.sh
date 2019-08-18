@@ -50,7 +50,7 @@ installvbguest () {
 }
 
 installvmwareguest () {
-	sudo apt install -y open-vm-tools
+	sudo apt install -y open-vm-tools open-vm-tools-desktop fuse
 }
 
 
@@ -61,7 +61,7 @@ clonegitrepos () {
 	git config --global credential.helper cache
 	git clone https://github.com/mu71l473d/PublicBashScripts.git;
 	git clone https://github.com/mu71l473d/BashScripts.git;
-	git clone https://github.com/mu71l473d/BookNotes.git; 
+	#git clone https://github.com/mu71l473d/BookNotes.git; 
 	git clone https://github.com/mu71l473d/GreyBlackHatPython.git; 
 	git clone https://github.com/mu71l473d/PythonScripts.git;
 	git clone https://github.com/mu71l473d/PowershellScripts.git;
