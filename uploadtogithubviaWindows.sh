@@ -14,6 +14,13 @@ git add *
 git commit -m "new version"
 git push
 
+echo "PublicBashScripts"
+cd ~/Github/mu71l473d.github.io
+git pull
+git add *
+git commit -m "new version"
+git push
+
 echo "BanditChallenge"
 cd ~/Github/BanditChallenge
 git pull
