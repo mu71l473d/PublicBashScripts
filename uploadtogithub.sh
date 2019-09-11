@@ -52,8 +52,8 @@ echo "Books and booknotes"
 cd /media/mu71l473d/Datadisk/books/
 update;
 
-echo "PowershellScripts"
-cd ~/Github/PublicPowershellScripts
+echo "PublicPowershellScripts"
+cd ~/Github/PublicPowerShellScripts
 update;
 
 echo "Done with Uploading"
