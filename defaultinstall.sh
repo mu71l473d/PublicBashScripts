@@ -23,6 +23,7 @@ defaultinstall.sh () {
 	#installsublime;
 	#installhd;
 	#installffdev;
+	installiotre;
 }
 
 
@@ -228,6 +229,10 @@ installffdev () {
     
     
     
+}
+
+installiotre () {
+	sudo apt install binwalk openocd flashrom firmware-mod-kit killerbee hackrf ubertooth ubertooth-firmware gqrx gqrx-sdr multimon-ng dex2jar radare2 
 }
 
 defaultinstall.sh
