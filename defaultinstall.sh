@@ -24,6 +24,7 @@ defaultinstall.sh () {
 	#installhd;
 	installffdev;
 	#installiotre;
+	cloneptrepos;
 }
 
 
@@ -230,6 +231,11 @@ installffdev () {
 
 installiotre () {
 	sudo apt install binwalk openocd flashrom firmware-mod-kit killerbee hackrf ubertooth ubertooth-firmware gqrx gqrx-sdr multimon-ng dex2jar radare2 
+}
+
+cloneptrepos () {
+	cd /usr/share/wordlists/
+	git clone https://github.com/danielmiessler/SecLists
 }
 
 defaultinstall.sh
