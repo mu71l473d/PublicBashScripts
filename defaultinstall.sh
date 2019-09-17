@@ -37,7 +37,7 @@ update () {
 
 installfromapt () {
 	update;
-	sudo apt install -y apt-transport-https git gdb gcc python3 python3-pip cmake make curl p7zip-full p7zip-rar; 
+	sudo apt install -y apt-transport-https git gcc python3 python3-pip cmake make curl p7zip-full p7zip-rar; 
 }
 
 installfromaptgui () {
@@ -46,7 +46,7 @@ installfromaptgui () {
 }
 
 installpentest () {
-	sudo apt install -y exiftool wireshark tmux seclists ftp php-curl python-smb mingw-w64
+	sudo apt install -y exiftool gdb wireshark tmux seclists ftp php-curl python-smb mingw-w64
 }
 
 installvbguest () {
@@ -106,6 +106,7 @@ configuregnomebar () {
 	gsettings set org.gnome.shell.extensions.dash-to-dock dock-position BOTTOM
 	#set applications button to left
 	gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true
+
 }
 
 installsignal () {
@@ -131,7 +132,7 @@ installspotify () {
  
 
 installwine () {
-	sudo apt update && sudo apt upgrade
+	update;
 	sudo apt install wine-stable
 	winecfg
 }
@@ -150,9 +151,10 @@ installsumatrapdf () {
 
 
 installgrub () {
-	sudo apt install grub;
-	grub-mkinstall;
-	sudo update-grub;
+	update;	
+	sudo apt install grub
+	grub-mkinstall
+	sudo update-grub
 }
 
 installvmware () {
@@ -242,8 +244,6 @@ cloneptrepos () {
 settzdata () {
 	sudo dpkg-reconfigure tzdata
 	#also set time from gui until scripted. ntp service can be added.
-	sudo apt install ntpdate
-	sudo ntpdate ntp.time.nl
 }
 
 defaultinstall.sh
