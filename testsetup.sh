@@ -13,7 +13,8 @@ testsetup.sh () {
 	#installsublime;
 	#installffdev;
 	#installiotre;
-	#cloneptrepos
+	#cloneptrepos;
+	#settzdata;
 }
 
 update () {
@@ -110,6 +111,12 @@ installiotre () {
 cloneptrepos () {
 	cd /usr/share/wordlists/
 	git clone https://github.com/danielmiessler/SecLists
+}
+
+
+settzdata () {
+	dpkg-reconfigure tzdata
+	#also set time from gui until scripted. ntp service can be added.
 }
 
 testsetup.sh

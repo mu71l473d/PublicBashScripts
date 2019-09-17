@@ -7,7 +7,7 @@ ADAPTER=eth0
 IPADDRESS=192.168.1.233
 NETMASK=255.255.255.0
 GATEWAY=192.168.1.1
-DNSNAMESERVER=8.8.8.8  #separate these with a whitespace
+DNSNAMESERVER=192.168.1.1  #separate these with a whitespace
 
 # turn off networking
 ifdown $ADAPTER

@@ -22,9 +22,10 @@ defaultinstall.sh () {
 	#installdropbox;
 	#installsublime;
 	#installhd;
-	installffdev;
+	#installffdev;
 	#installiotre;
-	cloneptrepos;
+	#cloneptrepos;
+	settzdata;
 }
 
 
@@ -236,6 +237,13 @@ installiotre () {
 cloneptrepos () {
 	cd /usr/share/wordlists/
 	git clone https://github.com/danielmiessler/SecLists
+}
+
+settzdata () {
+	sudo dpkg-reconfigure tzdata
+	#also set time from gui until scripted. ntp service can be added.
+	sudo apt install ntpdate
+	sudo ntpdate ntp.time.nl
 }
 
 defaultinstall.sh
