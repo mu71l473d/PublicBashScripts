@@ -111,6 +111,9 @@ installiotre () {
 cloneptrepos () {
 	cd /usr/share/wordlists/
 	git clone https://github.com/danielmiessler/SecLists
+	
+	cd /opt/
+	git clone https://github.com/techgaun/github-dorks/
 }
 
 

@@ -26,6 +26,7 @@ defaultinstall.sh () {
 	#installiotre;
 	#cloneptrepos;
 	settzdata;
+	#addaliases;
 }
 
 
@@ -244,6 +245,13 @@ cloneptrepos () {
 settzdata () {
 	sudo dpkg-reconfigure tzdata
 	#also set time from gui until scripted. ntp service can be added.
+}
+
+addaliases () {
+	echo "alias update='sudo apt update && sudo apt upgrade -y'" >> ~/.bashrc
+	echo "alias lal='ls -al'"
+	source ~/.bashrc
+
 }
 
 defaultinstall.sh
