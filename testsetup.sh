@@ -105,7 +105,7 @@ installffdev () {
 }
 
 installiotre () {
-	sudo apt install binwalk openocd flashrom firmware-mod-kit killerbee hackrf ubertooth ubertooth-firmware gqrx gqrx-sdr multimon-ng dex2jar radare2
+	sudo apt install binwalk openocd flashrom firmware-mod-kit killerbee hackrf ubertooth ubertooth-firmware gqrx gqrx-sdr multimon-ng dex2jar radare2 hackrf libhackrf-dev libhackrf0
 } 
 
 cloneptrepos () {

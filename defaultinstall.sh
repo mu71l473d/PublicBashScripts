@@ -249,7 +249,8 @@ settzdata () {
 
 addaliases () {
 	echo "alias update='sudo apt update && sudo apt upgrade -y'" >> ~/.bashrc
-	echo "alias lal='ls -al'"
+	echo "alias lal='ls -al'" >> ~/.bashrc
+	echo "alias serviceunits=systemctl list-units --type=service" >> ~/.bashrc
 	source ~/.bashrc
 
 }
