@@ -8,7 +8,7 @@ defaultinstall.sh () {
 	#update;
 	#installfromapt;
 	#installfromaptgui;
-	#installpentest;
+	installpentest;
 	#installvbguest;
 	#installvmwareguest;			
 	#installgrub;
@@ -23,9 +23,9 @@ defaultinstall.sh () {
 	#installsublime;
 	#installhd;
 	#installffdev;
-	#installiotre;
+	installiotre;
 	#cloneptrepos;
-	settzdata;
+	#settzdata;
 	#addaliases;
 }
 
@@ -33,7 +33,7 @@ defaultinstall.sh () {
 
 update () {
 	sudo apt update
-	sudo apt upgrade
+	sudo apt upgrade -y
 }
 
 installfromapt () {
@@ -99,7 +99,8 @@ installptf () {
 installsublime () {
 	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 	echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-	sudo apt update && sudo apt upgrade
+	sudo apt update && sudo apt install sublime-text -y
+	
 }
 
 configuregnomebar () {
