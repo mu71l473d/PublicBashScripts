@@ -8,7 +8,7 @@ testsetup.sh () {
 	#update;
 	#installfromapt;
 	#installpentest;
-	#installmobilepentest;
+	installmobilepentest;
 	#configuregnomebar;
 	#installptf;
 	#installsublime;
@@ -35,7 +35,7 @@ installpentest () {
 
 installmobilepentest () {
 	update;
-	sudo apt install -y android-apktool androick android-sdk android-sdk-platform-tools androidpincrack androidsniffer androwarn androbugs androguard apkstudio backdoor-apk backhack dex2jar drozer kwetza lazydroid androbugs
+	sudo apt install -y android-sdk android-sdk-platform-tools androguard dex2jar drozer
 }
 
 installptf () {
