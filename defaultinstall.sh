@@ -9,6 +9,7 @@ defaultinstall.sh () {
 	#installfromapt;
 	#installfromaptgui;
 	installpentest;
+	installmobilepentest;
 	#installvbguest;
 	#installvmwareguest;			
 	#installgrub;
@@ -47,7 +48,13 @@ installfromaptgui () {
 }
 
 installpentest () {
+	update;
 	sudo apt install -y exiftool gdb wireshark tmux seclists ftp php-curl python-smb mingw-w64
+}
+
+installmobilepentest () {
+	update;
+	sudo apt install -y android-apktool androick android-sdk android-sdk-platform-tools androidpincrack androidsniffer androwarn androbugs androguard apkstudio backdoor-apk backhack dex2jar drozer kwetza lazydroid androbugs
 }
 
 installvbguest () {

@@ -8,6 +8,7 @@ testsetup.sh () {
 	#update;
 	#installfromapt;
 	#installpentest;
+	#installmobilepentest;
 	#configuregnomebar;
 	#installptf;
 	#installsublime;
@@ -28,7 +29,13 @@ installfromapt () {
 }
 
 installpentest () {
+	update;
 	sudo apt install -y exiftool wireshark tmux seclists ftp php-curl python-smb mingw-w64
+}
+
+installmobilepentest () {
+	update;
+	sudo apt install -y android-apktool androick android-sdk android-sdk-platform-tools androidpincrack androidsniffer androwarn androbugs androguard apkstudio backdoor-apk backhack dex2jar drozer kwetza lazydroid androbugs
 }
 
 installptf () {
