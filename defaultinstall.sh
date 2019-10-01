@@ -96,11 +96,13 @@ clonegitrepos () {
 }
 
 installptf () {
-	cd ~
+	cd /opt
 	git clone https://github.com/trustedsec/ptf.git
-	./ptf
-	#use modules/install_update_all
-	#yes
+	cd /opt/ptf
+	chmod +x ptf
+	./ptf <<EOF
+	use modules/install_update_all
+	EOF
 }
 
 installsublime () {
