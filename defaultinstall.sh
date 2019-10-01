@@ -8,8 +8,8 @@ defaultinstall.sh () {
 	#update;
 	#installfromapt;
 	#installfromaptgui;
-	installpentest;
-	installmobilepentest;
+	#installpentest;
+	#installmobilepentest;
 	#installvbguest;
 	#installvmwareguest;			
 	#installgrub;
@@ -24,7 +24,7 @@ defaultinstall.sh () {
 	#installsublime;
 	#installhd;
 	#installffdev;
-	installiotre;
+	#installiotre;
 	#cloneptrepos;
 	#settzdata;
 	#addaliases;
@@ -49,7 +49,7 @@ installfromaptgui () {
 
 installpentest () {
 	update;
-	sudo apt install -y exiftool gdb wireshark tmux seclists ftp php-curl python-smb mingw-w64
+	sudo apt install -y exiftool gdb wireshark tmux seclists gobuster ftp php-curl python-smb mingw-w64
 }
 
 installmobilepentest () {
