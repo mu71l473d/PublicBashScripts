@@ -248,8 +248,14 @@ installiotre () {
 }
 
 cloneptrepos () {
-	cd /usr/share/wordlists/
-	git clone https://github.com/danielmiessler/SecLists
+	echo "Installing Qark"
+	cd /opt
+	git clone https://github.com/linkedin/qark
+	cd qark
+	pip install -r requirements.txt
+	pip install . 
+	qark --help
+	echo "Qark is installed"	
 }
 
 settzdata () {
