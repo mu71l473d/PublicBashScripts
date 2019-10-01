@@ -39,7 +39,7 @@ update () {
 
 installfromapt () {
 	update;
-	sudo apt install -y apt-transport-https git gcc python3 python3-pip cmake make curl p7zip-full p7zip-rar; 
+	sudo apt install -y apt-transport-https git gcc python3 python3-pip python3-venv cmake make curl p7zip-full p7zip-rar; 
 }
 
 installfromaptgui () {
