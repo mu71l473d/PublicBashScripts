@@ -28,6 +28,7 @@ defaultinstall.sh () {
 	#cloneptrepos;
 	#settzdata;
 	#addaliases;
+	#mobsf
 }
 
 
@@ -248,14 +249,17 @@ installiotre () {
 }
 
 cloneptrepos () {
-	echo "Installing Qark"
+	echo "[+] Installing Qark"
+	echo "[+] this project requires python3 and pip installed.\n"
+	echo "[+] on debian based systems it can be installed with: sudo apt install python3 python3-pip"
 	cd /opt
 	git clone https://github.com/linkedin/qark
 	cd qark
-	pip install -r requirements.txt
-	pip install . 
+	#It can also be called with pip3 install
+	pip3 install -r requirements.txt
+	pip3 -m pip install . 
 	qark --help
-	echo "Qark is installed"	
+	echo "Qark is installed\n"	
 }
 
 settzdata () {
@@ -271,6 +275,12 @@ addaliases () {
 	echo "alias restart='systemctl restart'" >> ~/.bashrc
 	source ~/.bashrc
 
+}
+
+mobsf () {
+	apt install docker.io
+	docker pull opensecurity/mobile-security-framework-mobsf
+	docker run -it -p 8000:8000 opensecurity/mobile-security-framework-mobsf
 }
 
 defaultinstall.sh

@@ -8,7 +8,8 @@ testsetup.sh () {
 	#update;
 	#installfromapt;
 	#installpentest;
-	installmobilepentest;
+	#installmobilepentest;
+	#installmobsf
 	#configuregnomebar;
 	#installptf;
 	#installsublime;
@@ -38,6 +39,12 @@ installmobilepentest () {
 	sudo apt install -y android-sdk android-sdk-platform-tools androguard dex2jar drozer
 }
 
+installmobsf (){
+	apt install docker.io
+	docker pull opensecurity/mobile-security-framework-mobsf
+	docker run -it -p 8000:8000 opensecurity-mobile-security-framework-mobsf:latest
+	echo "now open the browser on localhost:8000"
+}
 installptf () {
 	cd ~
 	git clone https://github.com/trustedsec/ptf.git
