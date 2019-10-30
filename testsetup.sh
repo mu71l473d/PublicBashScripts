@@ -9,7 +9,7 @@ testsetup.sh () {
 	#installfromapt;
 	#installpentest;
 	#installmobilepentest;
-	#installmobsf
+	installmobsf
 	#configuregnomebar;
 	#installptf;
 	#installsublime;
