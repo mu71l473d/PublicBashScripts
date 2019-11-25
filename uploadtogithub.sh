@@ -56,4 +56,12 @@ echo "PublicPowershellScripts"
 cd ~/Github/PublicPowerShellScripts
 update;
 
+echo "hackdecamera"
+cd ~/Github/hackcamera
+update;
+
+echo "Kiwashop"
+cd ~/Github/juice-shop
+update;
+
 echo "Done with Uploading"

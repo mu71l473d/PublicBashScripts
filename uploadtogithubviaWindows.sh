@@ -84,5 +84,19 @@ git add *
 git commit -m "new version"
 git push
 
+echo "hackdecamera"
+cd ~/Github/hackcamera
+git pull
+git add *
+git commit -m "new version"
+git push
+
+echo "Kiwashop"
+cd ~/Github/juice-shop
+git pull
+git add *
+git commit -m "new version"
+git push
+
 
 echo "Done with Uploading"
