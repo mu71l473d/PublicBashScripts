@@ -13,12 +13,12 @@ defaultinstall.sh () {
 	#installvbguest;
 	#installvmwareguest;			
 	#installgrub;
-	#clonegitrepos;
+	clonegitrepos;
 	#configuregnomebar;
 	#installspotify;
 	#installptf;
 	#installwine;
-	installsumatrapdf;
+	#installsumatrapdf;
 	#installvmware;
 	#installdropbox;
 	#installsublime;
