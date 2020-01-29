@@ -13,7 +13,7 @@ defaultinstall.sh () {
 	#installvbguest;
 	#installvmwareguest;			
 	#installgrub;
-	clonegitrepos;
+	#clonegitrepos;
 	#configuregnomebar;
 	#installspotify;
 	#installptf;
@@ -22,7 +22,7 @@ defaultinstall.sh () {
 	#installvmware;
 	#installdropbox;
 	#installsublime;
-	#installhd;
+	installhd;
 	#installffdev;
 	#installiotre;
 	#cloneptrepos;
@@ -44,7 +44,7 @@ installfromapt () {
 
 installfromaptgui () {
 	update;	
-	sudo apt install -y qbittorrent thunderbird vlc cherrytree wine-stable
+	sudo apt install -y qbittorrent thunderbird vlc cherrytree wine
 }
 
 installpentest () {
