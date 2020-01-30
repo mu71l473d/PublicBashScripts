@@ -8,7 +8,7 @@ defaultinstall.sh () {
 	#update;
 	#installfromapt;
 	#installfromaptgui;
-	#installpentest;
+	installpentest;
 	#installmobilepentest;
 	#installvbguest;
 	#installvmwareguest;			
@@ -22,7 +22,7 @@ defaultinstall.sh () {
 	#installvmware;
 	#installdropbox;
 	#installsublime;
-	installhd;
+	#installhd;
 	#installffdev;
 	#installiotre;
 	#cloneptrepos;
@@ -50,6 +50,9 @@ installfromaptgui () {
 installpentest () {
 	update;
 	sudo apt install -y exiftool gdb wireshark tmux seclists gobuster ftp php-curl python-smb mingw-w64
+	if [ -n "$(uname -a | grep Kali)"]; then
+	sudo apt install kali-linux-everything -y
+	fi
 }
 
 installmobilepentest () {
@@ -182,7 +185,7 @@ installhd () {
 	xrandr --newmode "1920x1080"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
 	xrandr --addmode Virtual1 1920x1080
 	xrandr --output Virtual1 --mode 1920x1080
-
+	echo "Also don't forget to check if the /etc/default/grub config file is configured for 1080p. Then run update-grub to update the bootloader"
 }
 
 installffdev () {
@@ -225,13 +228,16 @@ installffdev () {
     # Move the program files to the target directory.
     sudo mv firefox/* /opt/firefox-dev
 
+    # make current user the owner of the firefox folder
+    sudo chown $USER:$USER /opt/firefox-dev
+
     # Remove the unzipped install folder.
     rm -rf firefox
 
     # Remove the install file.
     rm $FILE
     
-    echo -e ${FIREFOX_DESKTOP} > /usr/share/applications/firefox-dev.desktop
+    sudo echo -e ${FIREFOX_DESKTOP} > /usr/share/applications/firefox-dev.desktop
        
     echo "Firefox Dev Ed $1 installed."
    
@@ -261,7 +267,7 @@ settzdata () {
 }
 
 addaliases () {
-	echo "alias update='sudo apt update && sudo apt upgrade -y'" >> ~/.bashrc
+	echo "alias update='sudo apt update && sudo apt upgrade -y && cd /opt/ptf && sudo ./ptf --update-all -y'" >> ~/.bashrc
 	echo "alias lal='ls -al'" >> ~/.bashrc
 	echo "alias serviceunits='systemctl list-units --type=service'" >> ~/.bashrc
 	echo "alias status='systemctl status'" >> ~/.bashrc
