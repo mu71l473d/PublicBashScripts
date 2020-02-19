@@ -70,8 +70,13 @@ installicspentest () {
 	git clone https://github.com/w3h/isf
 		echo "[*] the industrial security exploitation framework (ISF) requires python 2.7"
 	
-	git clone https://github.com/dark-lbp/isf
-		echo "[*] isf based on routersploit uses python 2.7"
+	git clone https://github.com/threat9/routersploit
+		echo "[*] routersploit"
+		cd routersploit
+		apt install libglib2.0-dev
+		python3 -m pip install -r requirements.txt
+		python3 -m pip install bluepy
+		cd ..
 	
 	git clone https://github.com/nsacyber/GRASSMARLIN
 	
