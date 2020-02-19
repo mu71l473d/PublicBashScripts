@@ -63,21 +63,46 @@ installmobilepentest () {
 
 installicspentest () {
 	sudo mkdir /opt/icstools/ && cd /opt/icstools	
+	
 	git clone https://github.com/theralfbrown/smod-1
-		cd smod-1
-			
-		cd ..
+		echo "[*] smod-1 requires python 2.7. You should consider not using it anymore"
+	
 	git clone https://github.com/w3h/isf
+		echo "[*] the industrial security exploitation framework (ISF) requires python 2.7"
+	
 	git clone https://github.com/dark-lbp/isf
+		echo "[*] isf based on routersploit uses python 2.7"
+	
 	git clone https://github.com/nsacyber/GRASSMARLIN
+	
 	git clone https://github.com/digitalbond/Redpoint
+		cd Redpoint
+			sudo cp *.nse /usr/share/nmap/scripts
+			echo "[*] scripts copied. "
+		cd ..
 	git clone https://github.com/moki-ics/modscan
+		
 	git clone https://github.com/SCADACS/PLCinject
+	
 	git clone https://github.com/yanlinlin82/plcscan
+
 	git clone https://github.com/0xICF/SCADAShutdownTool/tree/
+
 	git clone https://github.com/moki-ics/moki
+		cd moki
+			chmod +x setup.sh
+			./setup.sh --all
+		cd ..
+
 	git clone https://github.com/ControlThingsTools/cti2c
+		echo "a python 2.7 tool for interfacing with i2c connections"
+
 	git clone https://github.com/ControlThingsTools/ctserial
+		echo "a swiss army knife for interfacing with serial"
+		cd ctserial
+		pip3 install -r requirements.txt
+		cd ..
+
 
 }
 installvbguest () {
