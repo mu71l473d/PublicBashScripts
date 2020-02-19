@@ -8,8 +8,9 @@ defaultinstall.sh () {
 	#update;
 	#installfromapt;
 	#installfromaptgui;
-	installpentest;
+	#installpentest;
 	#installmobilepentest;
+	installicspentest;
 	#installvbguest;
 	#installvmwareguest;			
 	#installgrub;
@@ -60,6 +61,25 @@ installmobilepentest () {
 	sudo apt install -y android-apktool androick android-sdk android-sdk-platform-tools androidpincrack androidsniffer androwarn androbugs androguard apkstudio backdoor-apk backhack dex2jar drozer kwetza lazydroid androbugs
 }
 
+installicspentest () {
+	sudo mkdir /opt/icstools/ && cd /opt/icstools	
+	git clone https://github.com/theralfbrown/smod-1
+		cd smod-1
+			
+		cd ..
+	git clone https://github.com/w3h/isf
+	git clone https://github.com/dark-lbp/isf
+	git clone https://github.com/nsacyber/GRASSMARLIN
+	git clone https://github.com/digitalbond/Redpoint
+	git clone https://github.com/moki-ics/modscan
+	git clone https://github.com/SCADACS/PLCinject
+	git clone https://github.com/yanlinlin82/plcscan
+	git clone https://github.com/0xICF/SCADAShutdownTool/tree/
+	git clone https://github.com/moki-ics/moki
+	git clone https://github.com/ControlThingsTools/cti2c
+	git clone https://github.com/ControlThingsTools/ctserial
+
+}
 installvbguest () {
 	apt install -y build-essential dkms
 }
@@ -267,7 +287,7 @@ settzdata () {
 }
 
 addaliases () {
-	echo "alias update='sudo apt update && sudo apt upgrade -y && cd /opt/ptf && sudo ./ptf --update-all -y'" >> ~/.bashrc
+	echo "alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove && cd /opt/ptf && sudo ./ptf --update-all -y'" >> ~/.bashrc
 	echo "alias lal='ls -al'" >> ~/.bashrc
 	echo "alias serviceunits='systemctl list-units --type=service'" >> ~/.bashrc
 	echo "alias status='systemctl status'" >> ~/.bashrc

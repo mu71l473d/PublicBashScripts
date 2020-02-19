@@ -17,6 +17,7 @@ testsetup.sh () {
 	#installiotre;
 	#cloneptrepos;
 	#settzdata;
+	#addaliases;
 }
 
 update () {
@@ -31,6 +32,11 @@ installfromapt () {
 
 installpentest () {
 	update;
+
+	if [ -n "$(uname -a | grep Kali)"]; then
+		sudo apt install -y kali-linux-everything 
+	fi
+
 	sudo apt install -y exiftool wireshark tmux seclists ftp php-curl python-smb mingw-w64
 }
 
@@ -45,13 +51,13 @@ installmobsf (){
 	docker run -it -p 8000:8000 opensecurity-mobile-security-framework-mobsf:latest
 	echo "now open the browser on localhost:8000"
 }
+
 installptf () {
-	cd ~
+	cd /opt/
 	git clone https://github.com/trustedsec/ptf.git
-	./ptf
-	#use modules/install_update_all
-	#yes
-}
+	cd ./ptf/
+	chmod +x ptf
+	./ptf --update-all
 
 installsublime () {
 	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
@@ -123,9 +129,27 @@ installiotre () {
 } 
 
 cloneptrepos () {
-	cd /usr/share/wordlists/
-	git clone https://github.com/danielmiessler/SecLists
-	
+	update;
+
+	echo "[+] Installing Qark"
+	echo "[+] this project requires python3 and pip installed.\n"
+	echo "[+] on debian based systems it can be installed with: sudo apt install python3 python3-pip"
+	cd /opt
+	git clone https://github.com/linkedin/qark
+	cd qark
+	pip3 install -r requirements.txt
+	pip3 -m pip install . 
+	qark --help
+	echo "Qark is installed\n"
+
+	if [ -n "$(uname -a | grep Kali)"]; then
+		sudo apt install -y seclists
+	else
+		sudo mkdir -p /usr/share/wordlists/
+		cd /usr/share/wordlists/
+		git clone https://github.com/danielmiessler/SecLists 
+	fi
+
 	cd /opt/
 	git clone https://github.com/techgaun/github-dorks/
 }
@@ -135,5 +159,16 @@ settzdata () {
 	dpkg-reconfigure tzdata
 	#also set time from gui until scripted. ntp service can be added.
 }
+
+addaliases () {
+	echo "alias update='sudo apt update && sudo apt upgrade -y && cd /opt/ptf && sudo ./ptf --update-all -y'" >> ~/.bashrc
+	echo "alias lal='ls -al'" >> ~/.bashrc
+	echo "alias serviceunits='systemctl list-units --type=service'" >> ~/.bashrc
+	echo "alias status='systemctl status'" >> ~/.bashrc
+	echo "alias restart='systemctl restart'" >> ~/.bashrc
+	source ~/.bashrc
+}
+
+
 
 testsetup.sh
