@@ -8,23 +8,20 @@ ORGANIZATION=example.org
 OU=IT
 EMAIL=administrator@example.org
 
-#
+
 # Create static DNS aliases for the cloudkey, edgerouter and edgeswitch before starting with this script.
-#
 
 function CreateCertificateAuthority {
 
 if [ -f ./ubntCA.key ]; then rm ./ubntCA.key; fi
 if [ -f ./ubntCA.pem ]; then rm ./ubntCA.pem; fi
 
-#
+
 # Create the Root Key for the rootCA
-#
 openssl genrsa -out ubntCA.key 2048
 
-#
 # Now self-sign this certificate using the root key.
-# I used a wildcard for the subdomains
+# I used a wildcard for the subdomains. The edgerouter might not work correctly with a wildcard.
 #
 # CN: CommonName
 # OU: OrganizationalUnit
@@ -43,7 +40,7 @@ openssl req -x509 \
             -out ubntCA.pem
 
 
-printf "\nNow install this cert (ubntCA.pem) in your workstations Trusted Root Authority.\n"
+printf "\nNow install this cert (ubntCA.pem) in your workstations Trusted Root Authority or the browser.\n"
 
 
 }
@@ -96,7 +93,7 @@ function CreateServerPem {
 	#on the edgerouter the cert needs to be named server.pem
 	cp server.pem /etc/lighttpd/
 	
-	#copy the required edgerouter files
+	#copy the required edgerouter files to the lighttpd server
 	mkdir -p /config/auth/certificates 
 	cp server.crt server.key ubntCA.crt ubntCA.key ubntCA.pem server.pem
 	cd /config/auth/certificate
@@ -107,6 +104,7 @@ function CreateServerPem {
 function CreateCertcrt {
 	#Cloudkey
 	systemctl stop unifi
+	#nginx runs the webserver at port 443, and the cloudkey (unifi service) itself uses 8443
 	systemctl stop nginx
 	
 	# for the cloudkey the certs needs to be named cloudkey.* and a cert file called cert.crt. These run on the nginx webserver that hosts the settings. 
@@ -140,9 +138,9 @@ function ImportIntoJavaKeystore {
 	# KEYSTORE BACKUP
 	# Even though this script attempts to be clever and careful in how it backs up your existing keystore,
 	# it's never a bad idea to manually back up your keystore (located at $UNIFI_DIR/data/keystore on RedHat
-	# systems or /$UNIFI_DIR/keystore on Debian/Ubunty systems) to a separate directory before running this
-	# script. If anything goes wrong, you can restore from your backup, restart the UniFi Controller service,
-	# and be back online immediately.
+	# and Cloudkey systems or /$UNIFI_DIR/keystore on Debian/Ubunty systems) to a separate directory before 
+	# running this script. If anything goes wrong, you can restore from your backup, restart the UniFi Controller 
+	# service, and be back online immediately.
 	#
 	
 	# CONFIGURATION OPTIONS.
