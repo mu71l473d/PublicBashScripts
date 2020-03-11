@@ -13,24 +13,24 @@ EMAIL=administrator@example.org
 
 function CreateCertificateAuthority {
 
-if [ -f ./ubntCA.key ]; then rm ./ubntCA.key; fi
-if [ -f ./ubntCA.pem ]; then rm ./ubntCA.pem; fi
+	if [ -f ./ubntCA.key ]; then rm ./ubntCA.key; fi
+	if [ -f ./ubntCA.pem ]; then rm ./ubntCA.pem; fi
 
 
-# Create the Root Key for the rootCA
-openssl genrsa -out ubntCA.key 2048
+	# Create the Root Key for the rootCA
+	openssl genrsa -out ubntCA.key 2048
 
-# Now self-sign this certificate using the root key.
-# I used a wildcard for the subdomains. The edgerouter might not work correctly with a wildcard.
-#
-# CN: CommonName
-# OU: OrganizationalUnit
-# O: Organization
-# L: Locality
-# S: StateOrProvinceName
-# C: CountryName
-#
-openssl req -x509 \
+	# Now self-sign this certificate using the root key.
+	# I used a wildcard for the subdomains. The edgerouter might not work correctly with a wildcard.
+	#
+	# CN: CommonName
+	# OU: OrganizationalUnit
+	# O: Organization
+	# L: Locality
+	# S: StateOrProvinceName
+	# C: CountryName
+	#
+	openssl req -x509 \
             -new \
             -nodes \
             -key ubntCA.key \
@@ -40,37 +40,37 @@ openssl req -x509 \
             -out ubntCA.pem
 
 
-printf "\nNow install this cert (ubntCA.pem) in your workstations Trusted Root Authority or the browser.\n"
+	printf "\nNow install this cert (ubntCA.pem) in your workstations Trusted Root Authority or the browser.\n"
 
 
 }
 
 function CreateServerCertificate {
 
-if [ -f ./server.key ]; then  rm ./server.key; fi
-if [ -f ./server.csr ]; then  rm ./server.csr; fi
-if [ -f ./server.crt ]; then  rm ./server.crt; fi
+	if [ -f ./server.key ]; then  rm ./server.key; fi
+	if [ -f ./server.csr ]; then  rm ./server.csr; fi
+	if [ -f ./server.crt ]; then  rm ./server.crt; fi
 
-#
-# Create A Certificate
-#
-openssl genrsa -out server.key 2048
+	#
+	# Create A Certificate
+	#
+	openssl genrsa -out server.key 2048
 
-#
-# Now generate the certificate signing request.
-#
-openssl req -new \
+	#
+	# Now generate the certificate signing request.
+	#
+	openssl req -new \
             -key server.key \
             -subj "/C=$COUNTRY/ST=$STATE/L=$LOCALITY/O=$ORGANIZATION/OU=$OU/CN=$DOMAIN/emailAddress=$EMAIL" \
             -out server.csr
 
-#
-# Now generate the final certificate from the signing request.
-# Note that the edgerouter didn't work well with a wildcard certificate, but the cloud key did.
-# In order for the self-signed certificate to work (in the browser), it needs to have a DNS resolvable TLD, 
-# even though it can be run in internal DNS
-#
- openssl x509 -req \
+	#
+	# Now generate the final certificate from the signing request.
+	# Note that the edgerouter didn't work well with a wildcard certificate, but the cloud key did.
+	# In order for the self-signed certificate to work (in the browser), it needs to have a DNS resolvable TLD, 
+	# even though it can be run in internal DNS
+	#
+	 openssl x509 -req \
              -in server.csr \
              -CA ubntCA.pem \
              -CAkey ubntCA.key \
