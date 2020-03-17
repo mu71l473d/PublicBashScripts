@@ -10,7 +10,7 @@ defaultinstall.sh () {
 	#installfromaptgui;
 	#installpentest;
 	#installmobilepentest;
-	installicspentest;
+	#installicspentest;
 	#installvbguest;
 	#installvmwareguest;			
 	#installgrub;
@@ -148,11 +148,11 @@ clonegitrepos () {
 }
 
 installptf () {
-	cd /opt
+	cd /opt/
 	git clone https://github.com/trustedsec/ptf.git
 	cd /opt/ptf
 	chmod +x ptf
-	./ptf --update-all
+	sudo ./ptf --update-all
 }
 
 installsublime () {
