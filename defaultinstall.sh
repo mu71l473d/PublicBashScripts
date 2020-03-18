@@ -21,7 +21,6 @@ defaultinstall.sh () {
 	#installwine;
 	#installsumatrapdf;
 	#installvmware;
-	#installdropbox;
 	#installsublime;
 	#installhd;
 	#installffdev;
@@ -224,12 +223,6 @@ installvmware () {
     	sudo bash ~/Downloads/vmware.bin
 }
 
-installdropbox () {
-    	cd ~/Downloads
-    	wget -O - https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2018.11.28_amd64.deb
-    	sudo dpkg -i dropbox_2018.11.28_amd64.deb
-}
-
 installhd () {
         ##installs a 1080p mode for kali/ubuntu/etc.
 	xrandr --newmode "1920x1080"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
@@ -317,11 +310,8 @@ settzdata () {
 }
 
 addaliases () {
-	echo "alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove && cd /opt/ptf && sudo ./ptf --update-all -y'" >> ~/.bashrc
-	echo "alias lal='ls -al'" >> ~/.bashrc
-	echo "alias serviceunits='systemctl list-units --type=service'" >> ~/.bashrc
-	echo "alias status='systemctl status'" >> ~/.bashrc
-	echo "alias restart='systemctl restart'" >> ~/.bashrc
+	echo -n "alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove && cd /opt/ptf && sudo ./ptf --update-all -y'\nalias lal='ls -al'\nalias serviceunits='systemctl list-units --type=service'\nalias status='systemctl status'\nalias restart='systemctl restart'\nalias edgerouter='ssh -i ~/.ssh/edgerouter admin@edgerouter.kiwapentest.nl'\nalias cloudkey='ssh -i ~/.ssh/cloudkey admin@cloudkey.kiwapentest.nl'\nalias qownnotes='/opt/QOwnNotes/QOwnNotes.AppImage & >/dev/null 2>&1'\nalias autorecon='python3 /opt/AutoRecon/autorecon.py'" >> ~/.bashrc
+
 	source ~/.bashrc
 }
 
