@@ -205,8 +205,8 @@ installsumatrapdf () {
 	cd /opt/SumatraPDF
 	
 	mv Sumatra*.exe SumatraPDF.exe
-	sudo echo -e ${SUMATRAPDF_DESKTOP} > /usr/share/applications/firefox-dev.desktop
-    	sudo echo -e ${SUMATRAPDF_DESKTOP} > ~/Desktop/firefox-dev.desktop
+	sudo echo -e ${SUMATRAPDF_DESKTOP} > /usr/share/applications/SumatraPDF.desktop
+    	sudo echo -e ${SUMATRAPDF_DESKTOP} > ~/Desktop/SumatraPDF.desktop
 }
 
 
