@@ -62,7 +62,7 @@ installmobilepentest () {
 }
 
 installicspentest () {
-	sudo mkdir /opt/icstools/ && cd /opt/icstools	
+	sudo mkdir -p /opt/icstools/ && cd /opt/icstools	
 	
 	git clone https://github.com/theralfbrown/smod-1
 		echo "[*] smod-1 requires python 2.7. You should consider not using it anymore"
@@ -198,14 +198,15 @@ installwine () {
 
 installsumatrapdf () {
 	installwine;
+	SUMATRAPDF_DESKTOP="[Desktop Entry]\nVersion=3.1.2-prerelease\nType=Application\nName=SumatraPDF_Prerelease\nExec=wine /opt/SumatraPDF/SumatraPDF.exe %F\nIcon=/opt/SumatraPDF/SumatraPDF.png"
 	cd /opt/
 	git clone https://github.com/mu71l473d/SumatraPDF.git
 	sudo chown $USER:$USER /opt/SumatraPDF
 	cd /opt/SumatraPDF
-	cp SumatraPDF.desktop /usr/share/applications/ ~/Desktop/
+	
 	mv Sumatra*.exe SumatraPDF.exe
-	mv sumatra*.exe SumatraPDF.exe
-	cd ~/Desktop
+	sudo echo -e ${SUMATRAPDF_DESKTOP} > /usr/share/applications/firefox-dev.desktop
+    	sudo echo -e ${SUMATRAPDF_DESKTOP} > ~/Desktop/firefox-dev.desktop
 }
 
 
@@ -288,6 +289,7 @@ installffdev () {
     rm $FILE
     
     sudo echo -e ${FIREFOX_DESKTOP} > /usr/share/applications/firefox-dev.desktop
+    sudo echo -e ${FIREFOX_DESKTOP} > ~/Desktop/firefox-dev.desktop
        
     echo "Firefox Dev Ed $1 installed."
    
