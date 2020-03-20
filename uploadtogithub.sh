@@ -1,4 +1,4 @@
-#!usr/bin/env bash
+#!/bin/bash
 RED='\033[0;31m'
 NOCOLOR='\033[0m'
 
