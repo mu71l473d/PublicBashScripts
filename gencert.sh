@@ -1,6 +1,10 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-DOMAIN=*.example.org
+## the following two variables are the subdomain dns names. e.g. $ERDNS.$DOMAIN -> edgerouter.example.org
+ERDNS=edgerouter
+CKDNS=cloudkey
+COUNTRY=NL
+DOMAIN=example.org
 COUNTRY=NL
 STATE=SomeState
 LOCALITY=Nothingdam
@@ -9,20 +13,30 @@ OU=IT
 EMAIL=administrator@example.org
 
 
+function main () {
+   #CreateCertificateAuthority
+   #CreateEdgerouterCertificate
+   #CreateCloudkeyCertificate
+   #CreateServerPem
+   #CreateCertcrt
+   #ImportIntoJavaKeystore
+}
+
 # Create static DNS aliases for the cloudkey, edgerouter and edgeswitch before starting with this script.
 
 function CreateCertificateAuthority {
 
 	if [ -f ./ubntCA.key ]; then rm ./ubntCA.key; fi
 	if [ -f ./ubntCA.pem ]; then rm ./ubntCA.pem; fi
+	if [ -d ~/ubiquiticerts/ ]; then rm -rf ~/ubiquiticerts/; fi
 
-
+	mkdir ~/ubiquiticerts
+	cd ~/ubiquiticerts
 	# Create the Root Key for the rootCA
 	openssl genrsa -out ubntCA.key 2048
+	echo "created the key."
 
 	# Now self-sign this certificate using the root key.
-	# I used a wildcard for the subdomains. The edgerouter might not work correctly with a wildcard.
-	#
 	# CN: CommonName
 	# OU: OrganizationalUnit
 	# O: Organization
@@ -31,13 +45,15 @@ function CreateCertificateAuthority {
 	# C: CountryName
 	#
 	openssl req -x509 \
-            -new \
+	    -new \
             -nodes \
             -key ubntCA.key \
             -sha256 \
             -days 3650 \
-            -subj "/C=$COUNTRY/ST=$STATE/L=$LOCALITY/O=$ORGANIZATION/OU=$OU/CN=$DOMAIN/emailAddress=$EMAIL" \
-            -out ubntCA.pem
+            -subj "/C=$COUNTRY/ST=$STATE/L=$LOCALITY/O=$ORGANIZATION/OU=$OU/CN=*.$DOMAIN/emailAddress=$EMAIL" \
+            -reqexts v3_req \
+	    -extensions v3_ca \
+	    -out ubntCA.pem
 
 
 	printf "\nNow install this cert (ubntCA.pem) in your workstations Trusted Root Authority or the browser.\n"
@@ -45,8 +61,8 @@ function CreateCertificateAuthority {
 
 }
 
-function CreateServerCertificate {
-
+function CreateEdgerouterCertificate {
+	cd ~/ubiquiticerts
 	if [ -f ./server.key ]; then  rm ./server.key; fi
 	if [ -f ./server.csr ]; then  rm ./server.csr; fi
 	if [ -f ./server.crt ]; then  rm ./server.crt; fi
@@ -59,11 +75,14 @@ function CreateServerCertificate {
 	#
 	# Now generate the certificate signing request.
 	#
-	openssl req -new \
-            -key server.key \
-            -subj "/C=$COUNTRY/ST=$STATE/L=$LOCALITY/O=$ORGANIZATION/OU=$OU/CN=$DOMAIN/emailAddress=$EMAIL" \
-            -out server.csr
 
+	openssl req -new \
+	    -key server.key \
+            -subj "/C=$COUNTRY/ST=$STATE/L=$LOCALITY/O=$ORGANIZATION/OU=$OU/CN=$ER.$DOMAIN/emailAddress=$EMAIL" \
+	    -reqexts v3_req \
+	    -extensions v3_req \
+            -out server.csr
+	echo "created the CSR for the server.crt"
 	#
 	# Now generate the final certificate from the signing request.
 	# Note that the edgerouter didn't work well with a wildcard certificate, but the cloud key did.
@@ -75,29 +94,68 @@ function CreateServerCertificate {
              -CA ubntCA.pem \
              -CAkey ubntCA.key \
              -CAcreateserial \
-             -extfile <(echo "subjectAltName=DNS:$DOMAIN") \
+             -extfile <(echo "subjectAltName=DNS:edgerouter.$DOMAIN") \
              -out server.crt -days 3650 -sha256
-
 }
 
+function CreateCloudkeyCertificate {
+        cd ~/ubiquiticerts
+        if [ -f ./cloudkey.key ]; then  rm ./cloudkey.key; fi
+        if [ -f ./cloudkey.csr ]; then  rm ./cloudkey.csr; fi
+        if [ -f ./cloudkey.crt ]; then  rm ./cloudkey.crt; fi
+
+        #
+        # Create A Certificate
+        #
+        openssl genrsa -out cloudkey.key 2048
+
+        #
+        # Now generate the certificate signing request.
+        #
+
+        openssl req -new \
+            -key cloudkey.key \
+            -subj "/C=$COUNTRY/ST=$STATE/L=$LOCALITY/O=$ORGANIZATION/OU=$OU/CN=*.$DOMAIN/emailAddress=$EMAIL" \
+            -reqexts v3_req \
+            -extensions v3_req \
+            -out cloudkey.csr
+        echo "created the CSR for the cloudkey.crt"
+        #
+        # Now generate the final certificate from the signing request.
+        # Note that the edgerouter didn't work well with a wildcard certificate, but the cloud key did.
+        # In order for the self-signed certificate to work (in the browser), it needs to have a DNS resolvable TLD, 
+        # even though it can be run in internal DNS
+        #
+         openssl x509 -req \
+             -in cloudkey.csr \
+             -CA ubntCA.pem \
+             -CAkey ubntCA.key \
+             -CAcreateserial \
+             -extfile <(echo "subjectAltName=DNS:cloudkey.$DOMAIN") \
+             -out cloudkey.crt -days 3650 -sha256
+}
+
+
 function CreateServerPem {
+	cd ~/ubiquiticerts/
 	#Edgerouter
-	cat ubntCA.pem > server.pem
 	cat server.crt >> server.pem
-	cat server.key >> server.pem
-	
+	cat server.key >> server.pem 
+	echo "created server.pem"
 	#kill the webserver and move the server.pem for the webGUI
-	kill -SIGTERM $(cat /var/run/lighttpd.pid)
+	kill -SIGKILL $(pidof lighttpd)
 	mv /etc/lighttpd/server.pem /etc/lighttpd/server.pem.old
-	
+	echo "stopped lighttpd server"
 	#on the edgerouter the cert needs to be named server.pem
 	cp server.pem /etc/lighttpd/
 	
 	#copy the required edgerouter files to the lighttpd server
 	mkdir -p /config/auth/certificates 
-	cp server.crt server.key ubntCA.crt ubntCA.key ubntCA.pem server.pem
-	cd /config/auth/certificate
-	/usr/sbin/lighttpd -f /etc/lighttpd/lighttpd.conf
+	cd /config/auth/certificates/
+        cp ~/ubiquiticerts/*  .
+
+	
+	sudo /usr/sbin/lighttpd -f /etc/lighttpd/lighttpd.conf
 
 }
 
@@ -109,17 +167,15 @@ function CreateCertcrt {
 	
 	# for the cloudkey the certs needs to be named cloudkey.* and a cert file called cert.crt. These run on the nginx webserver that hosts the settings. 
 	# The cloudkey software itself uses the keystore cert that is added later.
-	cp server.crt cloudkey.crt
-	cp server.key cloudkey.key
 	cp cloudkey.crt cert.crt
-	cp cloudkey.key >> cert.crt
+	cat cloudkey.key >> cert.crt
 	
 	# Copy the files
-	if [! -d "/etc/ssl/private"]; then 
-		mkdir -p /etc/ssl/private/ 
-	fi
+	mkdir -p /etc/ssl/private/ 
 	
-	cp cert.crt cloudkey.* /etc/ssl/private/
+	cp cert.crt /etc/ssl/private/
+	cp cloudkey.* /etc/ssl/private/
+	
 	systemctl start nginx
 	systemctl status nginx
 
@@ -144,7 +200,7 @@ function ImportIntoJavaKeystore {
 	#
 	
 	# CONFIGURATION OPTIONS.
-	UNIFI_HOSTNAME=$DOMAIN
+	UNIFI_HOSTNAME=$CKDNS.$DOMAIN
 	UNIFI_SERVICE=unifi
 
 	# Uncomment following three lines for Fedora/RedHat/CentOS
@@ -168,8 +224,8 @@ function ImportIntoJavaKeystore {
 	LE_LIVE_DIR=/etc/letsencrypt/live
 
 	# THE FOLLOWING OPTIONS NOT REQUIRED IF LE_MODE IS ENABLED
-	PRIV_KEY=server.key
-	SIGNED_CRT=server.crt
+	PRIV_KEY=cloudkey.key
+	SIGNED_CRT=cloudkey.crt
 	CHAIN_FILE=ubntCA.pem
 
 	# CONFIGURATION OPTIONS YOU PROBABLY SHOULDN'T CHANGE
@@ -292,9 +348,4 @@ function ImportIntoJavaKeystore {
 
 }
 
-   CreateCertificateAuthority
-   CreateServerCertificate
-   CreateServerPem
-   CreateCertcrt
-   ImportIntoJavaKeystore
-   
+main;
