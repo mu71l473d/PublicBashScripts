@@ -3,7 +3,7 @@ RED='\033[0;31m'
 NOCOLOR='\033[0m'
 
 update () {
-cd ~/Github
+cd ~/github
 currentdir=$(pwd)
 
 for D in *; do

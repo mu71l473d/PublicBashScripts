@@ -14,7 +14,7 @@ defaultinstall.sh () {
 	#installvbguest;
 	#installvmwareguest;			
 	#installgrub;
-	#clonegitrepos;
+	clonegitrepos;
 	#configuregnomebar;
 	#installspotify;
 	#installptf;
@@ -119,31 +119,27 @@ installvmwareguest () {
 
 
 clonegitrepos () {
-	sudo mkdir  ~/Github/
-	cd ~/Github
+	sudo mkdir  ~/github/
+	cd ~/github
 	git config --global user.name "mu71l473d"
 	git config --global credential.helper cache
-	git clone https://github.com/mu71l473d/PublicBashScripts.git;
-	git clone https://github.com/mu71l473d/BashScripts.git;
-	#git clone https://github.com/mu71l473d/BookNotes.git; 
-	git clone https://github.com/mu71l473d/GreyBlackHatPython.git; 
-	git clone https://github.com/mu71l473d/PythonScripts.git;
-	git clone https://github.com/mu71l473d/PowershellScripts.git;
-	git clone https://github.com/mu71l473d/BanditChallenge.git;
-	git clone https://github.com/mu71l473d/JavaProjects.git;
+	git clone https://github.com/mu71l473d/publicbashscripts.git;
+	git clone https://github.com/mu71l473d/bashscripts.git;
+	#git clone https://github.com/mu71l473d/booknotes.git; 
+	git clone https://github.com/mu71l473d/greyblackhatpython.git; 
+	git clone https://github.com/mu71l473d/pythonscripts.git;
+	git clone https://github.com/mu71l473d/powershellscripts.git;
+	git clone https://github.com/mu71l473d/banditchallenge.git;
+	git clone https://github.com/mu71l473d/javaprojects.git;
 	git clone https://github.com/mu71l473d/hacking-taoe.git;
-	git clone https://github.com/mu71l473d/PublicPythonScripts.git
+	git clone https://github.com/mu71l473d/publicpythonscripts.git
 	git clone https://github.com/mu71l473d/mu71l473d.github.io.git
-	git clone https://github.com/mu71l473d/PublicPowerShellScripts.git
-	git clone https://github.com/mu71l473d/MagicMirror.git
-	git clone https://github.com/mu71l473d/CProgrammingLanguage.git
-	git clone https://github.com/mu71l473d/PublicPythonScripts.git;
-	git clone https://github.com/mu71l473d/mu71l473d.github.io.git;
-	git clone https://github.com/mu71l473d/PublicPowerShellScripts.git;
-	git clone https://github.com/mu71l473d/MagicMirror.git;
-	git clone https://github.com/mu71l473d/CProgrammingLanguage.git;
+	git clone https://github.com/mu71l473d/publicpowershellscripts.git
+	git clone https://github.com/mu71l473d/magicmirror.git
+	git clone https://github.com/mu71l473d/cprogramminglanguage.git;
+	
 
-	ln -s ./PublicBashScripts/uploadtogithub.sh .
+	ln -s ./publicbashscripts/uploadtogithub.sh .
 }
 
 installptf () {
@@ -199,10 +195,17 @@ installsumatrapdf () {
 	installwine;
 	SUMATRAPDF_DESKTOP="[Desktop Entry]\nVersion=3.1.2-prerelease\nType=Application\nName=SumatraPDF_Prerelease\nExec=wine /opt/SumatraPDF/SumatraPDF.exe %F\nIcon=/opt/SumatraPDF/SumatraPDF.png"
 	cd /opt/
-	git clone https://github.com/mu71l473d/SumatraPDF.git
+	sudo git clone https://github.com/mu71l473d/SumatraPDF.git
 	sudo chown $USER:$USER /opt/SumatraPDF
 	cd /opt/SumatraPDF
 	
+	curl -o releases.txt http://kjkpub.s3.amazonaws.com/
+	cat release.txt
+	VERSIONNUMBER=$(grep -Eo 'software/sumatrapdf/daily/SumatraPDF-prerel-[0-9][0-9][0-9][0-9][0-9]-64.exe' releases.txt | tail -1)    
+	rm releases.txt
+
+	curl -O SumatraPDF.exe kjkpub.s3.amazonaws.com/$VERSIONNUMBER
+
 	mv Sumatra*.exe SumatraPDF.exe
 	sudo echo -e ${SUMATRAPDF_DESKTOP} > /usr/share/applications/SumatraPDF.desktop
     	sudo echo -e ${SUMATRAPDF_DESKTOP} > ~/Desktop/SumatraPDF.desktop
