@@ -14,7 +14,7 @@ defaultinstall.sh () {
 	#installvbguest;
 	#installvmwareguest;			
 	#installgrub;
-	clonegitrepos;
+	#clonegitrepos;
 	#configuregnomebar;
 	#installspotify;
 	#installptf;
@@ -39,7 +39,7 @@ update () {
 
 installfromapt () {
 	update;
-	sudo apt install -y apt-transport-https git gcc python3 python3-pip python3-venv cmake make curl p7zip-full p7zip-rar; 
+	sudo apt install -y apt-transport-https git tmux reptyr gcc python3 python3-pip python3-venv cmake make curl p7zip-full p7zip-rar; 
 }
 
 installfromaptgui () {
@@ -49,7 +49,7 @@ installfromaptgui () {
 
 installpentest () {
 	update;
-	sudo apt install -y exiftool gdb wireshark tmux seclists gobuster ftp php-curl python-smb mingw-w64
+	sudo apt install -y exiftool gdb wireshark seclists gobuster ftp php-curl python-smb mingw-w64
 	if [ -n "$(uname -a | grep Kali)"]; then
 	sudo apt install kali-linux-everything -y
 	fi
