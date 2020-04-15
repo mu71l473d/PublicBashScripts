@@ -348,4 +348,13 @@ function ImportIntoJavaKeystore {
 
 }
 
+function createCertificateService () {
+	CERTIFICATESERVICE="[Unit]\nDescription=Fix the selfsigned certificates on the cloudkey\n\n[Service]\nType=simple\nRemainAfterExit=yes\nExecStart=/root/ubiquiticerts/fixcloudkey.sh\nTimeoutStartSec=0\n\n[Install]\nWantedBy=default.target"
+	sudo echo -e ${CERTIFICATESERVICE} > /etc/systemd/system/fix-certificates.service
+
+	cd ~/ubiquticerts/
+	
+	## TODO create fixcloudkey.sh
+}
+
 main;
