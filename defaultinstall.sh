@@ -8,8 +8,8 @@ defaultinstall.sh () {
 	#update;
 	#installfromapt;
 	#installfromaptgui;
-	#installpentest;
-	#installmobilepentest;
+	installpentest;
+	installmobilepentest;
 	#installicspentest;
 	#installvbguest;
 	#installvmwareguest;			
@@ -49,7 +49,7 @@ installfromaptgui () {
 
 installpentest () {
 	update;
-	sudo apt install -y exiftool gdb wireshark seclists gobuster ftp php-curl python-smb mingw-w64
+	sudo apt install -y exiftool gdb wireshark seclists gobuster ftp php-curl python3-smb mingw-w64
 	if [ -n "$(uname -a | grep Kali)"]; then
 	sudo apt install kali-linux-everything -y
 	fi
@@ -58,6 +58,14 @@ installpentest () {
 installmobilepentest () {
 	update;
 	sudo apt install -y android-apktool androick android-sdk android-sdk-platform-tools androidpincrack androidsniffer androwarn androbugs androguard apkstudio backdoor-apk backhack dex2jar drozer kwetza lazydroid androbugs
+	
+	cd /opt/
+	mkdir android
+	cd android
+	git clone git://github.com/iBotPeaches/apktool.git
+	cd apktool
+	./gradlew build shadowJar proguard 
+
 }
 
 installicspentest () {
@@ -200,7 +208,6 @@ installsumatrapdf () {
 	cd /opt/SumatraPDF
 	
 	curl -o releases.txt http://kjkpub.s3.amazonaws.com/
-	cat release.txt
 	VERSIONNUMBER=$(grep -Eo 'software/sumatrapdf/daily/SumatraPDF-prerel-[0-9][0-9][0-9][0-9][0-9]-64.exe' releases.txt | tail -1)    
 	rm releases.txt
 
@@ -287,7 +294,7 @@ installffdev () {
     sudo echo -e ${FIREFOX_DESKTOP} > /usr/share/applications/firefox-dev.desktop
     sudo echo -e ${FIREFOX_DESKTOP} > ~/Desktop/firefox-dev.desktop
        
-    echo "Firefox Dev Ed $1 installed."
+    echo "Firefox Dev Ed $VERSION installed."
    
 }
 
