@@ -348,4 +348,30 @@ function ImportIntoJavaKeystore {
 
 }
 
+function cloudkeyCertFix () {
+	
+	CERTIFICATESERVICE="[Unit]\nDescription=Fix the selfsigned certificates on the cloudkey\n\n[Service]\nType=simple\nRemainAfterExit=yes\nExecStart=/root/ubiquiticerts/fixcloudkey.sh\nTimeoutStartSec=0\n\n[Install]\nWantedBy=default.target"
+	sudo echo -e ${CERTIFICATESERVICE} > /etc/systemd/system/fix-certificates.service
+
+	cd ~/ubiquticerts/
+	
+	## TODO create fixcloudkey.sh
+}
+
+function edgerouterCertFix () {
+        cd ~/ubiquiticerts
+	
+        #kill the webserver and move the server.pem for the webGUI
+        sudo kill -SIGKILL $(pidof lighttpd)
+        sudo mv /etc/lighttpd/server.pem /etc/lighttpd/server.pem.old
+        echo "stopped lighttpd server"
+        #on the edgerouter the cert needs to be named server.pem
+        sudo cp server.pem /etc/lighttpd/
+        
+        #copy the required edgerouter files to the lighttpd server
+        if [! -d ~/config/auth/certificates ]; then sudo mkdir -p /config/auth/certificates/; fi 
+        sudo cp ~/ubiquiticerts/*  /config/auth/certificates
+
+}
+
 main;

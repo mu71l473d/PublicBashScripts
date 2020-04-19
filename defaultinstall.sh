@@ -8,8 +8,8 @@ defaultinstall.sh () {
 	#update;
 	#installfromapt;
 	#installfromaptgui;
-	#installpentest;
-	#installmobilepentest;
+	installpentest;
+	installmobilepentest;
 	#installicspentest;
 	#installvbguest;
 	#installvmwareguest;			
@@ -58,6 +58,14 @@ installpentest () {
 installmobilepentest () {
 	update;
 	sudo apt install -y android-apktool androick android-sdk android-sdk-platform-tools androidpincrack androidsniffer androwarn androbugs androguard apkstudio backdoor-apk backhack dex2jar drozer kwetza lazydroid androbugs
+	
+	cd /opt/
+	mkdir android
+	cd android
+	git clone git://github.com/iBotPeaches/apktool.git
+	cd apktool
+	./gradlew build shadowJar proguard 
+
 }
 
 installicspentest () {
@@ -289,7 +297,7 @@ installffdev () {
     sudo echo -e ${FIREFOX_DESKTOP} > /usr/share/applications/firefox-dev.desktop
     sudo echo -e ${FIREFOX_DESKTOP} > ~/Desktop/firefox-dev.desktop
        
-    echo "Firefox Dev Ed $1 installed."
+    echo "Firefox Dev Ed $VERSION installed."
    
 }
 
