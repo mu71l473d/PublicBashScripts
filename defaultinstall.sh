@@ -19,7 +19,7 @@ defaultinstall.sh () {
 	#installspotify;
 	#installptf;
 	#installwine;
-	#installsumatrapdf;
+	installsumatrapdf;
 	#installvmware;
 	#installsublime;
 	#installhd;
@@ -49,7 +49,7 @@ installfromaptgui () {
 
 installpentest () {
 	update;
-	sudo apt install -y exiftool gdb wireshark seclists gobuster ftp php-curl python-smb mingw-w64
+	sudo apt install -y exiftool wine64 gdb wireshark seclists gobuster ftp php-curl python-smb mingw-w64
 	if [ -n "$(uname -a | grep Kali)"]; then
 	sudo apt install kali-linux-everything -y
 	fi
@@ -187,11 +187,12 @@ installspotify () {
 
 installwine () {
 	update;
-	sudo apt install wine-stable
+	sudo apt install wine64
 	winecfg
 }
 
 installsumatrapdf () {
+	echo "Downloading sumatrapdf from this script does not work. The easiest way until it is fixed is to download the .exe manually and drop it in the /opt/SumatraPDF folder."
 	installwine;
 	SUMATRAPDF_DESKTOP="[Desktop Entry]\nVersion=3.1.2-prerelease\nType=Application\nName=SumatraPDF_Prerelease\nExec=wine /opt/SumatraPDF/SumatraPDF.exe %F\nIcon=/opt/SumatraPDF/SumatraPDF.png"
 	cd /opt/
@@ -199,12 +200,13 @@ installsumatrapdf () {
 	sudo chown $USER:$USER /opt/SumatraPDF
 	cd /opt/SumatraPDF
 	
-	curl -o releases.txt http://kjkpub.s3.amazonaws.com/
-	cat release.txt
-	VERSIONNUMBER=$(grep -Eo 'software/sumatrapdf/daily/SumatraPDF-prerel-[0-9][0-9][0-9][0-9][0-9]-64.exe' releases.txt | tail -1)    
-	rm releases.txt
+	#curl -o releases.xml http://kjkpub.s3.amazonaws.com/
+	
+	#VERSIONNUMBER=$(grep -Eo 'software/sumatrapdf/daily/SumatraPDF-prerel-[0-9][0-9][0-9][0-9][0-9]-64.exe' releases.txt | tail -1)    
+	#echo "the versionnumber is $VERSIONNUMBER""
+	#rm releases.xml
 
-	curl -O SumatraPDF.exe kjkpub.s3.amazonaws.com/$VERSIONNUMBER
+	#curl -O SumatraPDF.exe kjkpub.s3.amazonaws.com/$VERSIONNUMBER
 
 	mv Sumatra*.exe SumatraPDF.exe
 	sudo echo -e ${SUMATRAPDF_DESKTOP} > /usr/share/applications/SumatraPDF.desktop
@@ -315,8 +317,8 @@ settzdata () {
 }
 
 addaliases () {
-	echo -n "alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove && cd /opt/ptf && sudo ./ptf --update-all -y'\nalias lal='ls -al'\nalias serviceunits='systemctl list-units --type=service'\nalias status='systemctl status'\nalias restart='systemctl restart'\nalias edgerouter='ssh -i ~/.ssh/edgerouter admin@edgerouter.kiwapentest.nl'\nalias cloudkey='ssh -i ~/.ssh/cloudkey admin@cloudkey.kiwapentest.nl'\nalias qownnotes='/opt/QOwnNotes/QOwnNotes.AppImage & >/dev/null 2>&1'\nalias autorecon='python3 /opt/AutoRecon/autorecon.py'" >> ~/.bashrc
-
+	ALIASES="alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove && cd /opt/ptf && sudo ./ptf --update-all -y'\nalias lal='ls -al'\nalias serviceunits='systemctl list-units --type=service'\nalias status='systemctl status'\nalias restart='systemctl restart'\nalias edgerouter='ssh -i ~/.ssh/edgerouter admin@edgerouter.kiwapentest.nl'\nalias cloudkey='ssh -i ~/.ssh/cloudkey admin@cloudkey.kiwapentest.nl'\nalias qownnotes='/opt/QOwnNotes/QOwnNotes.AppImage & >/dev/null 2>&1'\nalias autorecon='python3 /opt/AutoRecon/autorecon.py'" >> ~/.bashrc
+	echo -e ${ALIASES} >> ~/.bashrc
 	source ~/.bashrc
 }
 
