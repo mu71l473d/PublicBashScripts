@@ -11,7 +11,6 @@ if [ -d "${D}" ]; then
 	cd "$currentdir/${D}"
 	echo
 	echo -e "${RED}$(pwd)${NOCOLOR}"
-	sudo git pull
 	sudo git add *
 	sudo git commit -m "new version"
 	sudo git push
