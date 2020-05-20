@@ -20,7 +20,11 @@ defaultinstall.sh () {
 	#installptf;
 	#installwine;
 	#installsumatrapdf;
+<<<<<<< HEAD
 	installvmware;
+=======
+	#installvmware;
+>>>>>>> 668cd9b3eb13281fb2d8e4c7da7b7b86e299c935
 	#installsublime;
 	#installhd;
 	#installffdev;
@@ -57,14 +61,94 @@ installpentest () {
 
 installmobilepentest () {
 	update;
-	sudo apt install -y android-apktool androick android-sdk android-sdk-platform-tools androidpincrack androidsniffer androwarn androbugs androguard apkstudio backdoor-apk backhack dex2jar drozer kwetza lazydroid androbugs
+	ANDROID_STUDIO_DESKTOP="[Desktop Entry]\nVersion=1.0\nType=Application\nName=Android Studio\nIcon=/opt/android/android-studio/bin/studio.svg\nExec=/opt/android/android-studio/bin/studio.sh %f\nComment=The Drive to Develop]\nCategories=Development;IDE;\nTerminal=false\nStartupWMClass=jetbrains-studio"
+
+	#install Android Studio
+	# only works atm if only one jdk package in downloads
+	DOWNLOADS=$HOME/Downloads
+	CURRENT_VERSION=$(java -version 2>&1)
+	JDK=` ls $DOWNLOADS | grep "jdk"`
+	#replace the studio link with a non-static one.
+	STUDIO_URL=http://dl.google.com/android/studio/install/0.3.2/android-studio-bundle-132.893413-linux.tgz
+	if [ "uname -m" == "i386" -o "uname -m" == "i686" ]; then
+	    ARCH=32
+	else
+	    ARCH=64
+	fi
+
+	#replace with a more recent version.
+	if [ "$ARCH" == "32" ]; then
+	    if [ "$JDK" == "" ]; then
+		(cd $DOWNLOADS; wget http://download.oracle.com/otn-pub/java/jdk/7u45-b18/jdk-7u45-linux-i586.tar.gz)
+	    fi
+	elif [ "$ARCH" == "64" ]; then
+	    if [ "$JDK" == "" ]; then
+		(cd $DOWNLOADS; wget http://download.oracle.com/otn-pub/java/jdk/7u45-b18/jdk-7u45-linux-x64.tar.gz)
+	    fi
+	else 
+	    echo "Architecture unable to be determined"
+	    exit
+	fi
+
+	# reset JDK variable
+	JDK=` ls $DOWNLOADS | grep "jdk"`
+
+	sudo apt-get install lib32ncurses5 ia32-libs 2>&1
+	tar xzvf $DOWNLOADS/$JDK
+	JDK_VERSION=` ls | grep "jdk" `
+	sudo mv $JDK_VERSION /usr/lib/jvm
+	sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/$JDK_VERSION/bin/java
+	sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/$JDK_VERSION/bin/javac
+	sudo update-alternatives --install /usr/bin/javaws javaws /usr/lib/jvm/$JDK_VERSION/bin/javaws
+	sudo update-alternatives --config java
+	sudo update-alternatives --config javaws
+
+	if [ ! -d $HOME/android-studio -o ! -f $DOWNLOADS/android-studio* ]; then
+	    (cd $DOWNLOADS; wget $STUDIO_URL)
+	    #verify download finished
+	    if [ ! -f $DOWNLOADS/android-studio* ]; then
+		echo "tar not found. Download failed?"
+		exit
+	    fi
+	fi
+	STUDIO_TAR=` ls $DOWNLOADS | grep "android-studio" `
+	tar xzvf $DOWNLOADS/$STUDIO_TAR
+	STUDIO_DIR=` ls | grep "android-studio" `
+	./$STUDIO_DIR/bin/studio.sh
+
+	sudo echo -e ${ANDROID_STUDIO_DESKTOP} > /usr/share/applications/android-studio.desktop
+
+
+	#install useful tools
+	sudo apt install -y python3-venv android-apktool androick android-sdk android-sdk-platform-tools androidpincrack androidsniffer androwarn androbugs androguard apkstudio backdoor-apk backhack dex2jar drozer kwetza lazydroid androbugs
 	
+	#install apktool
 	cd /opt/
 	mkdir android
 	cd android
 	git clone git://github.com/iBotPeaches/apktool.git
 	cd apktool
 	./gradlew build shadowJar proguard 
+
+	#install mobsf
+	cd /opt/android/
+	git clone https://github.com/MobSF/Mobile-Security-Framework-MobSF
+	cd Mobile-Security-Framework-MobSF/
+	apt install python3-venv
+	pip3 install wkhtmltopdf
+	chmod +x setup.sh
+	chmod +x run.sh
+	./setup.sh
+	./run.sh
+
+	#install qark
+	apt install python3-ip
+	pip3 install --user qark
+
+	ln -s /root/.local/bin/qark /usr/local/bin/qark
+
+	echo "The qark version is: "
+	qark --version
 
 }
 
@@ -306,17 +390,7 @@ installiotre () {
 }
 
 cloneptrepos () {
-	echo "[+] Installing Qark"
-	echo "[+] this project requires python3 and pip installed.\n"
-	echo "[+] on debian based systems it can be installed with: sudo apt install python3 python3-pip"
-	cd /opt
-	git clone https://github.com/linkedin/qark
-	cd qark
-	#It can also be called with pip3 install
-	pip3 install -r requirements.txt
-	pip3 -m pip install . 
-	qark --help
-	echo "Qark is installed\n"	
+	#will fix later, qark was added to mobile tools
 }
 
 settzdata () {
