@@ -20,11 +20,8 @@ defaultinstall.sh () {
 	#installptf;
 	#installwine;
 	#installsumatrapdf;
-<<<<<<< HEAD
-	installvmware;
-=======
 	#installvmware;
->>>>>>> 668cd9b3eb13281fb2d8e4c7da7b7b86e299c935
+	#installvmware;
 	#installsublime;
 	#installhd;
 	#installffdev;
@@ -55,7 +52,7 @@ installpentest () {
 	update;
 	sudo apt install -y exiftool wine64 gdb tmux wireshark seclists gobuster ftp php-curl python-smb mingw-w64
 	if [ -n "$(uname -a | grep Kali)"]; then
-	sudo apt install kali-linux-everything -y
+	sudo apt install kali-linux-large -y
 	fi
 }
 
