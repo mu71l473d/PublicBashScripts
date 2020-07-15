@@ -45,14 +45,14 @@ installfromapt () {
 
 installfromaptgui () {
 	update;	
-	sudo apt install -y qbittorrent thunderbird vlc cherrytree wine
+	sudo apt install -y qbittorrent thunderbird vlc cherrytree
 }
 
 installpentest () {
 	update;
-	sudo apt install -y exiftool wine64 gdb tmux wireshark seclists gobuster ftp php-curl python-smb mingw-w64
+	sudo apt install -y exiftool wine64 gdb tmux wireshark wine seclists gobuster ftp php-curl python-smb mingw-w64
 	if [ -n "$(uname -a | grep Kali)"]; then
-	sudo apt install kali-linux-large -y
+		sudo apt install kali-linux-large -y
 	fi
 }
 
@@ -226,6 +226,7 @@ clonegitrepos () {
 	git clone https://github.com/mu71l473d/publicpowershellscripts.git
 	git clone https://github.com/mu71l473d/magicmirror.git
 	git clone https://github.com/mu71l473d/cprogramminglanguage.git;
+	git clone https://github.com/mu71l473d/cheatsheets.git;
 	
 
 	ln -s ./publicbashscripts/uploadtogithub.sh .
