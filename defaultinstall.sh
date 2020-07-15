@@ -20,18 +20,14 @@ defaultinstall.sh () {
 	#installptf;
 	#installwine;
 	#installsumatrapdf;
-<<<<<<< HEAD
-	installvmware;
-=======
 	#installvmware;
->>>>>>> 668cd9b3eb13281fb2d8e4c7da7b7b86e299c935
 	#installsublime;
 	#installhd;
 	#installffdev;
 	#installiotre;
 	#cloneptrepos;
 	#settzdata;
-	#addaliases;
+	addaliases;
 }
 
 
@@ -387,10 +383,6 @@ installffdev () {
 
 installiotre () {
 	sudo apt install binwalk openocd flashrom firmware-mod-kit killerbee hackrf ubertooth ubertooth-firmware gqrx gqrx-sdr multimon-ng dex2jar radare2 
-}
-
-cloneptrepos () {
-	#will fix later, qark was added to mobile tools
 }
 
 settzdata () {
