@@ -6,14 +6,14 @@
 
 defaultinstall.sh () {
 	#update;
-	#installfromapt;
+	installfromapt;
 	#installfromaptgui;
-	#installpentest;
+	installpentest;
 	#installmobilepentest;
 	#installicspentest;
 	#installvmwareguest;			
 	#installgrub;
-	#clonegitrepos;
+	clonegitrepos;
 	#configuregnomebar;
 	#configurexfce;
 	#installspotify;
@@ -22,8 +22,8 @@ defaultinstall.sh () {
 	#installsumatrapdf;
 	#installvmware;
 	#installffdev;
-	#installiotre;
-	#settzdata;
+	installiotre;
+	settzdata;
 	#addaliases;
 }
 
@@ -46,7 +46,7 @@ installfromaptgui () {
 
 installpentest () {
 	update;
-	sudo apt install -y exiftool wine64 gdb tmux wireshark wine seclists gobuster ftp php-curl python-smb mingw-w64
+	sudo apt install -y exiftool wine64 gdb wireshark wine seclists gobuster ftp php-curl python3-smb mingw-w64
 	if [ -n "$(uname -a | grep Kali)"]; then
 		sudo apt install kali-linux-large -y
 	fi
@@ -157,14 +157,14 @@ clonegitrepos () {
 	git clone https://github.com/mu71l473d/banditchallenge.git;
 	git clone https://github.com/mu71l473d/javaprojects.git;
 	git clone https://github.com/mu71l473d/hacking-taoe.git;
-	git clone https://github.com/mu71l473d/publicpythonscripts.git
-	git clone https://github.com/mu71l473d/mu71l473d.github.io.git
-	git clone https://github.com/mu71l473d/publicpowershellscripts.git
-	git clone https://github.com/mu71l473d/magicmirror.git
+	git clone https://github.com/mu71l473d/publicpythonscripts.git;
+	git clone https://github.com/mu71l473d/mu71l473d.github.io.git;
+	git clone https://github.com/mu71l473d/publicpowershellscripts.git;
+	git clone https://github.com/mu71l473d/magicmirror.git;
 	git clone https://github.com/mu71l473d/cprogramminglanguage.git;
 	git clone https://github.com/mu71l473d/cheatsheets.git;
-	git clone https://github.com/mu71l473d/training-boxes.git
-	git clone https://github.com/mu71l473d/juice-shop
+	git clone https://github.com/mu71l473d/training-boxes.git;
+	git clone https://github.com/mu71l473d/juice-shop;
 	
 	cd /usr/share/themes
 		git clone git clone https://github.com/mu71l473d/xfce-ubuntu-style
@@ -316,7 +316,7 @@ installffdev () {
 }
 
 installiotre () {
-	sudo apt install binwalk openocd flashrom firmware-mod-kit killerbee hackrf ubertooth ubertooth-firmware gqrx gqrx-sdr multimon-ng dex2jar radare2 
+	sudo apt install binwalk openocd flashrom firmware-mod-kit killerbee hackrf ubertooth ubertooth-firmware multimon-ng dex2jar radare2 
 }
 
 settzdata () {
