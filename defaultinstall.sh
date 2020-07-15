@@ -1,33 +1,30 @@
 #!/bin/bash
-#A simple installscript that makes (re)installing tools a lot easier. For now it only works on Ubuntu/Debian based systems.
+#A simple installscript that makes (re)installing tools that i enjoy using a lot easier. For now it only works on Ubuntu/Debian based systems.
 #uncomment the functions you need
 #@author Rene Bisperink
-#@version 0.1
+#@version 0.2
 
 defaultinstall.sh () {
 	#update;
-	#installfromapt;
+	installfromapt;
 	#installfromaptgui;
-	#installpentest;
+	installpentest;
 	#installmobilepentest;
 	#installicspentest;
-	#installvbguest;
 	#installvmwareguest;			
 	#installgrub;
-	#clonegitrepos;
+	clonegitrepos;
 	#configuregnomebar;
+	#configurexfce;
 	#installspotify;
 	#installptf;
 	#installwine;
 	#installsumatrapdf;
 	#installvmware;
-	#installsublime;
-	#installhd;
 	#installffdev;
-	#installiotre;
-	#cloneptrepos;
-	#settzdata;
-	addaliases;
+	installiotre;
+	settzdata;
+	#addaliases;
 }
 
 
@@ -39,92 +36,35 @@ update () {
 
 installfromapt () {
 	update;
-	sudo apt install -y apt-transport-https git tmux reptyr gcc python3 python3-pip python3-venv cmake make curl p7zip-full p7zip-rar; 
+	sudo apt install -y apt-transport-https git reptyr gcc python3 python3-pip python3-venv cmake make curl p7zip-full p7zip-rar; 
 }
 
 installfromaptgui () {
 	update;	
-	sudo apt install -y qbittorrent thunderbird vlc cherrytree wine
+	sudo apt install -y qbittorrent thunderbird vlc cherrytree
 }
 
 installpentest () {
 	update;
-	sudo apt install -y exiftool wine64 gdb tmux wireshark seclists gobuster ftp php-curl python-smb mingw-w64
+	sudo apt install -y exiftool wine64 gdb wireshark wine seclists gobuster ftp php-curl python3-smb mingw-w64
 	if [ -n "$(uname -a | grep Kali)"]; then
-	sudo apt install kali-linux-everything -y
+		sudo apt install kali-linux-large -y
 	fi
 }
 
 installmobilepentest () {
 	update;
-	ANDROID_STUDIO_DESKTOP="[Desktop Entry]\nVersion=1.0\nType=Application\nName=Android Studio\nIcon=/opt/android/android-studio/bin/studio.svg\nExec=/opt/android/android-studio/bin/studio.sh %f\nComment=The Drive to Develop]\nCategories=Development;IDE;\nTerminal=false\nStartupWMClass=jetbrains-studio"
-
-	#install Android Studio
-	# only works atm if only one jdk package in downloads
-	DOWNLOADS=$HOME/Downloads
-	CURRENT_VERSION=$(java -version 2>&1)
-	JDK=` ls $DOWNLOADS | grep "jdk"`
-	#replace the studio link with a non-static one.
-	STUDIO_URL=http://dl.google.com/android/studio/install/0.3.2/android-studio-bundle-132.893413-linux.tgz
-	if [ "uname -m" == "i386" -o "uname -m" == "i686" ]; then
-	    ARCH=32
-	else
-	    ARCH=64
-	fi
-
-	#replace with a more recent version.
-	if [ "$ARCH" == "32" ]; then
-	    if [ "$JDK" == "" ]; then
-		(cd $DOWNLOADS; wget http://download.oracle.com/otn-pub/java/jdk/7u45-b18/jdk-7u45-linux-i586.tar.gz)
-	    fi
-	elif [ "$ARCH" == "64" ]; then
-	    if [ "$JDK" == "" ]; then
-		(cd $DOWNLOADS; wget http://download.oracle.com/otn-pub/java/jdk/7u45-b18/jdk-7u45-linux-x64.tar.gz)
-	    fi
-	else 
-	    echo "Architecture unable to be determined"
-	    exit
-	fi
-
-	# reset JDK variable
-	JDK=` ls $DOWNLOADS | grep "jdk"`
-
-	sudo apt-get install lib32ncurses5 ia32-libs 2>&1
-	tar xzvf $DOWNLOADS/$JDK
-	JDK_VERSION=` ls | grep "jdk" `
-	sudo mv $JDK_VERSION /usr/lib/jvm
-	sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/$JDK_VERSION/bin/java
-	sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/$JDK_VERSION/bin/javac
-	sudo update-alternatives --install /usr/bin/javaws javaws /usr/lib/jvm/$JDK_VERSION/bin/javaws
-	sudo update-alternatives --config java
-	sudo update-alternatives --config javaws
-
-	if [ ! -d $HOME/android-studio -o ! -f $DOWNLOADS/android-studio* ]; then
-	    (cd $DOWNLOADS; wget $STUDIO_URL)
-	    #verify download finished
-	    if [ ! -f $DOWNLOADS/android-studio* ]; then
-		echo "tar not found. Download failed?"
-		exit
-	    fi
-	fi
-	STUDIO_TAR=` ls $DOWNLOADS | grep "android-studio" `
-	tar xzvf $DOWNLOADS/$STUDIO_TAR
-	STUDIO_DIR=` ls | grep "android-studio" `
-	./$STUDIO_DIR/bin/studio.sh
-
-	sudo echo -e ${ANDROID_STUDIO_DESKTOP} > /usr/share/applications/android-studio.desktop
-
-
+	
 	#install useful tools
-	sudo apt install -y python3-venv android-apktool androick android-sdk android-sdk-platform-tools androidpincrack androidsniffer androwarn androbugs androguard apkstudio backdoor-apk backhack dex2jar drozer kwetza lazydroid androbugs
+	sudo apt install -y python3-venv apktool android-sdk android-sdk-platform-tools androguard dex2jar
 	
 	#install apktool
-	cd /opt/
-	mkdir android
-	cd android
-	git clone git://github.com/iBotPeaches/apktool.git
-	cd apktool
-	./gradlew build shadowJar proguard 
+	#cd /opt/
+	#mkdir android
+	#cd android
+	#git clone git://github.com/iBotPeaches/apktool.git
+	#cd apktool
+	#./gradlew build shadowJar proguard 
 
 	#install mobsf
 	cd /opt/android/
@@ -197,9 +137,6 @@ installicspentest () {
 
 
 }
-installvbguest () {
-	apt install -y build-essential dkms
-}
 
 installvmwareguest () {
 	sudo apt install -y open-vm-tools open-vm-tools-desktop fuse
@@ -220,12 +157,18 @@ clonegitrepos () {
 	git clone https://github.com/mu71l473d/banditchallenge.git;
 	git clone https://github.com/mu71l473d/javaprojects.git;
 	git clone https://github.com/mu71l473d/hacking-taoe.git;
-	git clone https://github.com/mu71l473d/publicpythonscripts.git
-	git clone https://github.com/mu71l473d/mu71l473d.github.io.git
-	git clone https://github.com/mu71l473d/publicpowershellscripts.git
-	git clone https://github.com/mu71l473d/magicmirror.git
+	git clone https://github.com/mu71l473d/publicpythonscripts.git;
+	git clone https://github.com/mu71l473d/mu71l473d.github.io.git;
+	git clone https://github.com/mu71l473d/publicpowershellscripts.git;
+	git clone https://github.com/mu71l473d/magicmirror.git;
 	git clone https://github.com/mu71l473d/cprogramminglanguage.git;
+	git clone https://github.com/mu71l473d/cheatsheets.git;
+	git clone https://github.com/mu71l473d/training-boxes.git;
+	git clone https://github.com/mu71l473d/juice-shop;
 	
+	cd /usr/share/themes
+		git clone https://github.com/mu71l473d/xfce-ubuntu-style
+	cd ~/github	
 
 	ln -s ./publicbashscripts/uploadtogithub.sh .
 }
@@ -238,17 +181,16 @@ installptf () {
 	sudo ./ptf --update-all
 }
 
-installsublime () {
-	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-	echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-	sudo apt update && sudo apt install sublime-text -y
-}
 
 configuregnomebar () {
 	#set bar to bottom
 	gsettings set org.gnome.shell.extensions.dash-to-dock dock-position BOTTOM
 	#set applications button to left
 	gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true
+}
+
+configurexfce () {
+	echo "To be done"
 }
 
 installsignal () {
@@ -317,14 +259,6 @@ installvmware () {
     	sudo bash ~/Downloads/vmware.bin
 }
 
-installhd () {
-        ##installs a 1080p mode for kali/ubuntu/etc.
-	xrandr --newmode "1920x1080"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
-	xrandr --addmode Virtual1 1920x1080
-	xrandr --output Virtual1 --mode 1920x1080
-	echo "Also don't forget to check if the /etc/default/grub config file is configured for 1080p. Then run update-grub to update the bootloader"
-}
-
 installffdev () {
 
     FIREFOX_DESKTOP="[Desktop Entry]\nName=Firefox Developer\nGenericName=Firefox Developer Edition\nExec=/opt/firefox-dev/firefox\nTerminal=false\nIcon=/opt/firefox-dev/browser/chrome/icons/default/default128.png\nType=Application\nCategories=Application;Network;X-Developer;\nComment=Firefox Developer Edition Web Browser."
@@ -382,16 +316,15 @@ installffdev () {
 }
 
 installiotre () {
-	sudo apt install binwalk openocd flashrom firmware-mod-kit killerbee hackrf ubertooth ubertooth-firmware gqrx gqrx-sdr multimon-ng dex2jar radare2 
+	sudo apt install binwalk openocd flashrom firmware-mod-kit killerbee hackrf ubertooth ubertooth-firmware multimon-ng dex2jar radare2 
 }
 
 settzdata () {
-	sudo dpkg-reconfigure tzdata
-	#also set time from gui until scripted. ntp service can be added.
+	timedatectl set-timezone Europe/Amsterdam
 }
 
 addaliases () {
-	ALIASES="alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove && cd /opt/ptf && sudo ./ptf --update-all -y'\nalias lal='ls -al'\nalias serviceunits='systemctl list-units --type=service'\nalias status='systemctl status'\nalias restart='systemctl restart'\nalias edgerouter='ssh -i ~/.ssh/edgerouter admin@edgerouter.kiwapentest.nl'\nalias cloudkey='ssh -i ~/.ssh/cloudkey admin@cloudkey.kiwapentest.nl'\nalias qownnotes='/opt/QOwnNotes/QOwnNotes.AppImage & >/dev/null 2>&1'\nalias autorecon='python3 /opt/AutoRecon/autorecon.py'" >> ~/.bashrc
+	ALIASES="alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove && cd /opt/ptf && sudo ./ptf --update-all -y'\nalias lal='ls -al'\nalias serviceunits='systemctl list-units --type=service'\nalias status='systemctl status'\nalias restart='systemctl restart'\nalias qownnotes='/opt/QOwnNotes/QOwnNotes.AppImage & >/dev/null 2>&1'\nalias autorecon='python3 /opt/AutoRecon/autorecon.py'" 
 	echo -e ${ALIASES} >> ~/.bashrc
 	source ~/.bashrc
 }
