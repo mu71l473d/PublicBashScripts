@@ -167,7 +167,7 @@ clonegitrepos () {
 	git clone https://github.com/mu71l473d/juice-shop;
 	
 	cd /usr/share/themes
-		git clone git clone https://github.com/mu71l473d/xfce-ubuntu-style
+		git clone https://github.com/mu71l473d/xfce-ubuntu-style
 	cd ~/github	
 
 	ln -s ./publicbashscripts/uploadtogithub.sh .
