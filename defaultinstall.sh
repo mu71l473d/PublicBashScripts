@@ -6,24 +6,25 @@
 
 defaultinstall.sh () {
 	#update;
-	installfromapt;
+	#installfromapt;
 	#installfromaptgui;
-	installpentest;
+	#installpentest;
 	#installmobilepentest;
 	#installicspentest;
 	#installvmwareguest;			
 	#installgrub;
-	clonegitrepos;
+	#clonegitrepos;
 	#configuregnomebar;
 	#configurexfce;
 	#installspotify;
 	#installptf;
 	#installwine;
 	#installsumatrapdf;
+	#fixvmwarekernel;
 	#installvmware;
 	#installffdev;
-	installiotre;
-	settzdata;
+	#installiotre;
+	#settzdata;
 	#addaliases;
 }
 
@@ -243,6 +244,21 @@ installsumatrapdf () {
     	sudo echo -e ${SUMATRAPDF_DESKTOP} > ~/Desktop/SumatraPDF.desktop
 }
 
+fixvmwarekernel () {
+	cd /usr/lib/vmware/modules/source
+	tar -xf vmnet.tar
+	cd vmnet-only
+	make
+	cd ..
+	tar -xf vmmon.tar
+	cd vmmon-only
+	make
+	cd ..
+	cp vmmon.o /lib/modules/`uname -r`/misc/vmmon.ko
+	cp vmnet.o /lib/modules/`uname -r`/misc/vmnet.ko
+	depmod -a
+	systemctl restart vmware
+}
 
 installgrub () {
 	update;	
