@@ -15,7 +15,7 @@ defaultinstall.sh () {
 	#installgrub;
 	#clonegitrepos;
 	#configuregnomebar;
-	#configurexfce;
+	configurexfce;
 	#installspotify;
 	#installptf;
 	#installwine;
@@ -79,7 +79,7 @@ installmobilepentest () {
 	./run.sh
 
 	#install qark
-	apt install python3-ip
+	apt install python3-pip
 	pip3 install --user qark
 
 	ln -s /root/.local/bin/qark /usr/local/bin/qark
@@ -191,9 +191,11 @@ configuregnomebar () {
 }
 
 configurexfce () {
-	echo "To be done"
+	cd /usr/share/themes
+	sudo git clone https://github.com/mu71l473d/xfce-ubuntu-style
+	cd /usr/share/icons
+	sudo git clone https://github.com/B00merang-Artwork/Windows-10	
 }
-
 installsignal () {
 	curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
 	echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
