@@ -167,10 +167,6 @@ clonegitrepos () {
 	git clone https://github.com/mu71l473d/training-boxes.git;
 	git clone https://github.com/mu71l473d/juice-shop;
 	
-	cd /usr/share/themes
-		git clone https://github.com/mu71l473d/xfce-ubuntu-style
-	cd ~/github	
-
 	ln -s ./publicbashscripts/uploadtogithub.sh .
 }
 
@@ -193,8 +189,11 @@ configuregnomebar () {
 configurexfce () {
 	cd /usr/share/themes
 	sudo git clone https://github.com/mu71l473d/xfce-ubuntu-style
-	cd /usr/share/icons
-	sudo git clone https://github.com/B00merang-Artwork/Windows-10	
+	sudo git clone https://github.com/B00merang-Project/Windows-10-Dark
+	sudo xfconf-query -c xfwm4 -p /general/theme -s xfce-ubuntu-style
+	sudo xfconf-query -c xsettings -p /Net/ThemeName -s xfce-ubuntu-style
+	sudo cp -rf xfce-ubuntu-style/Windows-10-Icons /usr/share/icons
+	sudo xfconf-query -c xsettings -p /Net/IconThemeName -s Windows-10-Icons	
 }
 installsignal () {
 	curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
