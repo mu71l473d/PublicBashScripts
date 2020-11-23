@@ -15,7 +15,7 @@ defaultinstall.sh () {
 	#installgrub;
 	#clonegitrepos;
 	#configuregnomebar;
-	configurexfce;
+	#configurexfce;
 	#installspotify;
 	#installptf;
 	#installwine;
@@ -25,7 +25,9 @@ defaultinstall.sh () {
 	#installffdev;
 	#installiotre;
 	#settzdata;
-	#addaliases;
+	addaliases;
+
+	chown -R $USER:$USER /opt
 }
 
 
@@ -55,18 +57,10 @@ installpentest () {
 
 installmobilepentest () {
 	update;
-	
+	sudo mkdir -p /opt/android
 	#install useful tools
-	sudo apt install -y python3-venv apktool android-sdk android-sdk-platform-tools androguard dex2jar
+	sudo apt install -y python3-venv apktool android-sdk adb androguard dex2jar
 	
-	#install apktool
-	#cd /opt/
-	#mkdir android
-	#cd android
-	#git clone git://github.com/iBotPeaches/apktool.git
-	#cd apktool
-	#./gradlew build shadowJar proguard 
-
 	#install mobsf
 	cd /opt/android/
 	git clone https://github.com/MobSF/Mobile-Security-Framework-MobSF
@@ -343,7 +337,9 @@ settzdata () {
 addaliases () {
 	ALIASES="alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove && cd /opt/ptf && sudo ./ptf --update-all -y'\nalias lal='ls -al'\nalias serviceunits='systemctl list-units --type=service'\nalias status='systemctl status'\nalias restart='systemctl restart'\nalias qownnotes='/opt/QOwnNotes/QOwnNotes.AppImage & >/dev/null 2>&1'\nalias autorecon='python3 /opt/AutoRecon/autorecon.py'" 
 	echo -e ${ALIASES} >> ~/.bashrc
+	echo -n ${ALIASES} >> ~/.zshrc
 	source ~/.bashrc
+	source ~/.zshrc
 }
 
 defaultinstall.sh
