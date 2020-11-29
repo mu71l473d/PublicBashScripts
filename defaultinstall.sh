@@ -1,5 +1,5 @@
 #!/bin/bash
-#A simple installscript that makes (re)installing tools that i enjoy using a lot easier. For now it only works on Ubuntu/Debian based systems.
+#A simple installscript that makes (re)installing tools that i enjoy using a lot easier. For now it only works on Ubuntu/Debian/Kali based systems.
 #uncomment the functions you need
 #@author Rene Bisperink
 #@version 0.2
@@ -32,9 +32,6 @@ defaultinstall.sh () {
 
 	
 }
-
-
-
 update () {
 	sudo apt update
 	sudo apt upgrade -y
@@ -340,7 +337,7 @@ settzdata () {
 addaliases () {
 	ALIASES="alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove && cd /opt/ptf && sudo ./ptf --update-all -y'\nalias lal='ls -al'\nalias serviceunits='systemctl list-units --type=service'\nalias status='systemctl status'\nalias restart='systemctl restart'\nalias qownnotes='/opt/QOwnNotes/QOwnNotes.AppImage & >/dev/null 2>&1'\nalias autorecon='python3 /opt/AutoRecon/autorecon.py'" 
 	echo -e ${ALIASES} >> ~/.bashrc
-	echo -n ${ALIASES} >> ~/.zshrc
+	echo -e ${ALIASES} >> ~/.zshrc
 	source ~/.bashrc
 	source ~/.zshrc
 }
@@ -348,62 +345,46 @@ addaliases () {
 buildsamurai () {
 	mkdir /opt/samurai
 	cd /opt/samurai
-
-	apt install nginx curl docker.io docker-compose unzip python3 php-fpm nano npm yarn wpscann zap burpsuite sqlmap nikto openjdk-11-jdk openjdk-11-jre
-	
-    git clone --depth 1 https://github.com/andresriancho/w3af.git
-
+	sudo apt install nginx curl docker.io docker-compose unzip python3 php-fpm nano npm yarn wpscann zap burpsuite sqlmap nikto openjdk-11-jdk openjdk-11-jre
+	git clone --depth 1 https://github.com/andresriancho/w3af.git
 }
 
 buildattify () {
 mkdir /opt/attify
 cd /opt/attify
-
-
-#to install 
+	sudo apt install binwalk firmware-mod-kit gnuradio gqrx-sdr hackrf gr-osmosdr inspectrum jadx kalibrate-rtl nmap radare2 radare2-cutter rfcat rtl-sdr rtl-433 rtlsdr-scanner ubertooth
+	sudo git clone https://github.com/NationalSecurityAgency/ghidra
+# to install: 
 #    Arduino
 #    Baudrate
 #    BDAddr
 #    BetterCap
-#    Binwalk
-	apt install binwalk
+#    +Binwalk
 #    Create_AP
 #    Cutter
 #    DspectrumGUI
 #    Dump1090
 #    Firmadyne
 #    Firmware Analysis Toolkit (FAT)
-#    Firmware-Mod-Kit (FMK)
-#    GHIDRA
-	git clone https://github.com/NationalSecurityAgency/ghidra
-#    GNURadio
-	apt install gnuradio
-#    GQRX
-	apt install gqrx-sdr
+#    +Firmware-Mod-Kit (FMK) 
+#    +GHIDRA
+#    +GNURadio
+#    +GQRX
 #    GR-GSM
 #    GR-Paint
-#    HackRF Tools
-	apt install hackrf gr-osmosdr
-#    Inspectrum
-	apt search inspectrum
-#    JADx
-	apt install jadx
-#    Kalibrate-RTL
-	apt install kalibrate-rtl
+#    +HackRF Tools
+#    +Inspectrum
+#    +JADx
+#    +Kalibrate-RTL
 #    KillerBee
 #    LibMPSSE
 #    Liquid-DSP
 #    LTE-Cell-Scanner
-#    NMAP
-	apt install nmap
-	
+#    +NMAP
 #    OOK-Decoder
 #    Qiling
-#    radare2
-	apt install radare2 radare2-cutter
-#    RFCat
-	apt install rfcat
-
+#    +radare2
+#    +RFCat
 #    RouterSploit
 	apt-get install python3-pip
 	git clone https://www.github.com/threat9/routersploit
@@ -415,16 +396,12 @@ cd /opt/attify
 	python3 -m pip install bluepy
 	python3 rsf.py	
 	cd ..
-	
-#    RTL-433
-	apt install rtl-433
-#    RTL-SDR tools
-	apt install rtl-sdr rtlsdr-scanner
-#    Scapy
+#    +RTL-433
+#    +RTL-SDR tools
+#    +Scapy
 	pip3 install --pre scapy[complete]
 #    Spectrum Painter
-#    Ubertooth tools-
-	apt install ubertooth
+#    +Ubertooth tools-
 #    URH (Universal Radio Hacker)
 }
 defaultinstall.sh
