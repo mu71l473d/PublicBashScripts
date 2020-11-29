@@ -5,6 +5,7 @@
 #@version 0.2
 
 defaultinstall.sh () {
+	chown -R $USER:$USER /opt
 	#update;
 	#installfromapt;
 	#installfromaptgui;
@@ -25,9 +26,11 @@ defaultinstall.sh () {
 	#installffdev;
 	#installiotre;
 	#settzdata;
-	addaliases;
+	#addaliases;
+	#buildattify
+	#buildsamurai
 
-	chown -R $USER:$USER /opt
+	
 }
 
 
@@ -342,4 +345,86 @@ addaliases () {
 	source ~/.zshrc
 }
 
+buildsamurai () {
+	mkdir /opt/samurai
+	cd /opt/samurai
+
+	apt install nginx curl docker.io docker-compose unzip python3 php-fpm nano npm yarn wpscann zap burpsuite sqlmap nikto openjdk-11-jdk openjdk-11-jre
+	
+    git clone --depth 1 https://github.com/andresriancho/w3af.git
+
+}
+
+buildattify () {
+mkdir /opt/attify
+cd /opt/attify
+
+
+#to install 
+#    Arduino
+#    Baudrate
+#    BDAddr
+#    BetterCap
+#    Binwalk
+	apt install binwalk
+#    Create_AP
+#    Cutter
+#    DspectrumGUI
+#    Dump1090
+#    Firmadyne
+#    Firmware Analysis Toolkit (FAT)
+#    Firmware-Mod-Kit (FMK)
+#    GHIDRA
+	git clone https://github.com/NationalSecurityAgency/ghidra
+#    GNURadio
+	apt install gnuradio
+#    GQRX
+	apt install gqrx-sdr
+#    GR-GSM
+#    GR-Paint
+#    HackRF Tools
+	apt install hackrf gr-osmosdr
+#    Inspectrum
+	apt search inspectrum
+#    JADx
+	apt install jadx
+#    Kalibrate-RTL
+	apt install kalibrate-rtl
+#    KillerBee
+#    LibMPSSE
+#    Liquid-DSP
+#    LTE-Cell-Scanner
+#    NMAP
+	apt install nmap
+	
+#    OOK-Decoder
+#    Qiling
+#    radare2
+	apt install radare2 radare2-cutter
+#    RFCat
+	apt install rfcat
+
+#    RouterSploit
+	apt-get install python3-pip
+	git clone https://www.github.com/threat9/routersploit
+	cd routersploit
+	python3 -m pip install -r requirements.txt
+	python3 rsf.py
+	#  bluetooth low energy support
+	apt-get install libglib2.0-dev
+	python3 -m pip install bluepy
+	python3 rsf.py	
+	cd ..
+	
+#    RTL-433
+	apt install rtl-433
+#    RTL-SDR tools
+	apt install rtl-sdr rtlsdr-scanner
+#    Scapy
+	pip3 install --pre scapy[complete]
+#    Spectrum Painter
+#    Ubertooth tools-
+	apt install ubertooth
+#    URH (Universal Radio Hacker)
+}
 defaultinstall.sh
