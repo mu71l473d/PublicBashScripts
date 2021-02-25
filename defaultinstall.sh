@@ -249,6 +249,7 @@ fixvmwarekernel () {
 	cd vmmon-only
 	make
 	cd ..
+	mkdir -p /lib/modules/`uname -r`/misc/
 	cp vmmon.o /lib/modules/`uname -r`/misc/vmmon.ko
 	cp vmnet.o /lib/modules/`uname -r`/misc/vmnet.ko
 	depmod -a
