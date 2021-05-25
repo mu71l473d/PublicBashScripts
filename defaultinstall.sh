@@ -273,7 +273,7 @@ installvmware () {
 
 installffdev () {
 
-    FIREFOX_DESKTOP="[Desktop Entry]\nName=Firefox Developer\nGenericName=Firefox Developer Edition\nExec=/opt/firefox-dev/firefox\nTerminal=false\nIcon=/opt/firefox-dev/browser/chrome/icons/default/default128.png\nType=Application\nCategories=Application;Network;X-Developer;\nComment=Firefox Developer Edition Web Browser."
+    FIREFOX_DESKTOP="[Desktop Entry]\nName=Firefox Developer\nGenericName=Firefox Developer Edition\nExec=/opt/firefox-dev/firefox -p\nTerminal=false\nIcon=/opt/firefox-dev/browser/chrome/icons/default/default128.png\nType=Application\nCategories=Application;Network;X-Developer;\nComment=Firefox Developer Edition Web Browser."
     
     curl -o releases.txt https://download-installer.cdn.mozilla.net/pub/devedition/releases/
     VERSION=$(grep -o '[0-9][0-9]\.[0-9][a-z][0-9]' releases.txt | tail -1)    
@@ -320,9 +320,9 @@ installffdev () {
     # Remove the install file.
     rm $FILE
     
-    sudo echo -e ${FIREFOX_DESKTOP} > /usr/share/applications/firefox-dev.desktop
-    sudo echo -e ${FIREFOX_DESKTOP} > ~/Desktop/firefox-dev.desktop
-       
+    echo -e ${FIREFOX_DESKTOP} > ~/Desktop/firefox-dev.desktop
+    sudo cp ~/Desktop/firefox-dev.desktop /usr/share/applications/firefox-dev.desktop
+    
     echo "Firefox Dev Ed $VERSION installed."
    
 }
