@@ -5,8 +5,9 @@
 #@version 0.2
 
 defaultinstall.sh () {
-	chown -R $USER:$USER /opt
+	#chown -R $USER:$USER /opt
 	#update;
+	#installkaligui;
 	#installfromapt;
 	#installfromaptgui;
 	#installpentest;
@@ -16,7 +17,7 @@ defaultinstall.sh () {
 	#installgrub;
 	#clonegitrepos;
 	#configuregnomebar;
-	#configurexfce;
+	configurexfce;
 	#installspotify;
 	#installptf;
 	#installwine;
@@ -33,8 +34,78 @@ defaultinstall.sh () {
 	
 }
 update () {
+	echo "[*] Running apt update && apt upgrade"
 	sudo apt update
 	sudo apt upgrade -y
+}
+
+installkaligui () {
+	update;
+	echo "[*] Installing the kali-win-kex package to have a GUI on WSL"
+	sudo apt install kali-win-kex
+}
+
+configurexfce () {
+	mkdir -p ~/.local/share/themes
+	cd ~/.local/share/themes
+	git clone https://github.com/mu71l473d/xfce-ubuntu-style
+
+	echo "[*] configuring the theme."
+	echo "[*] setting the icons to the Windows 10 icons from Kali"
+	xfconf-query -c xsettings -p /Net/IconThemeName -s Windows-10-Icons
+	
+	echo "[*] setting the theme to xfce-ubuntu-style"
+	xfconf-query -c xsettings -p /Net/ThemeName -s xfce-ubuntu-style
+	
+	echo "[*] setting the window manager to xfce-ubuntu-style"
+	xfconf-query -c xfwm4 -p /general/theme -s xfce-ubuntu-style
+	
+	echo "[*] setting the taskbar color to black"
+	xfconf-query --channel xfce4-panel -p /panels/panel-1/background-rgba --create \
+        -t double -t double -t double -t double \
+        -s 0     -s 0     -s 0     -s 1.0
+	
+	echo "[*] setting the panel / taskbar to the bottom of the screen"
+	xfconf-query --channel xfce4-panel -p /panels/panel-1/position -s 'p=8;x=960;y=1064'
+	
+	echo "[*] locking the panel on the bottom"
+	xfconf-query --channel xfce4-panel -p /panels/panel-1/position-locked -s true
+	
+	echo "[*] setting panel size to 36"
+	xfconf-query --channel xfce4-panel -p /panels/panel-1/size -s 36
+	
+	echo "[*] setting icon size to 42"
+	xfconf-query --channel xfce4-desktop -p /desktop-icons/icon-size -s 42
+
+	echo "[*] Setting the background"
+	for b in $(xfconf-query --channel xfce4-desktop --list | grep last-image)
+	do
+		echo "Setting the background from $(pwd)/unnamed.jpg"
+		xfconf-query --channel xfce4-desktop --property $b --set ~/.local/share/themes/xfce-ubuntu-style/background/unnamed.jpg
+	done
+	
+	echo "[*] Setting the image style to centered"
+	for s in $(xfconf-query --channel xfce4-desktop --list | grep image-style)
+	do
+		echo "Setting the style to centered on $s"
+		xfconf-query --channel xfce4-desktop --property $s --set 1
+	done
+	
+	echo "[*] Setting the color style"
+	for c in $(xfconf-query --channel xfce4-desktop --list | grep color-style)
+	do
+		echo "Setting the color style to a solid color on $c"
+		xfconf-query --channel xfce4-desktop --property $c --set 0
+	done
+
+	
+	echo "[*] Setting the wallpaper background color"
+	for r in $(xfconf-query --channel xfce4-desktop --list | grep rgba1 )
+	do
+		echo "Setting the color background to black on $r"
+		xfconf-query -c xfce4-desktop -p $r -t double -t double -t double -t double -s 0 -s 0 -s 0 -s 1
+	done
+	
 }
 
 installfromapt () {
@@ -49,10 +120,31 @@ installfromaptgui () {
 
 installpentest () {
 	update;
-	sudo apt install -y exiftool wine64 gdb wireshark wine seclists gobuster ftp php-curl python3-smb mingw-w64
-	if [ -n "$(uname -a | grep Kali)"]; then
-		sudo apt install kali-linux-large -y
+	echo "[*] Installing pentest packages"
+	sudo apt install -y exiftool wine64 gdb wireshark wine seclists gobuster ftp php-curl python3-smb mingw-w64 apt-transport-https git gdb gcc python3 cmake make curl p7zip-full p7zip-rar ghidra;
+	if grep -q Microsoft /proc/version; then
+  	echo "[*] Linux on Windows (WSL). Not installing kali-linux-large or the PTF because it triggers the Anti Virus when installing from WSL"
+	else
+  		if [ -n "$(uname -a | grep Kali)"]; then
+			echo "[*] Installing the kali-linux-large package"
+			sudo apt install kali-linux-large -y
+			installptf;
+		fi
 	fi
+}
+
+installptf () {
+	cd /opt/
+	echo "[*] Installing the Penetration Testers Framework (ptf) by Dave Kennedy (TrustedSec)"
+	if [ "$EUID" -ne 0 ] 
+	then
+  		sudo chown -R $USER:$USER /opt  		
+	fi
+
+	git clone https://github.com/trustedsec/ptf.git
+	cd /opt/ptf
+	chmod +x ptf
+	sudo ./ptf --update-all
 }
 
 installmobilepentest () {
@@ -164,13 +256,7 @@ clonegitrepos () {
 	ln -s ./publicbashscripts/uploadtogithub.sh .
 }
 
-installptf () {
-	cd /opt/
-	git clone https://github.com/trustedsec/ptf.git
-	cd /opt/ptf
-	chmod +x ptf
-	sudo ./ptf --update-all
-}
+
 
 
 configuregnomebar () {
@@ -180,15 +266,7 @@ configuregnomebar () {
 	gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true
 }
 
-configurexfce () {
-	cd /usr/share/themes
-	sudo git clone https://github.com/mu71l473d/xfce-ubuntu-style
-	sudo git clone https://github.com/B00merang-Project/Windows-10-Dark
-	sudo xfconf-query -c xfwm4 -p /general/theme -s xfce-ubuntu-style
-	sudo xfconf-query -c xsettings -p /Net/ThemeName -s xfce-ubuntu-style
-	sudo cp -rf xfce-ubuntu-style/Windows-10-Icons /usr/share/icons
-	sudo xfconf-query -c xsettings -p /Net/IconThemeName -s Windows-10-Icons	
-}
+
 installsignal () {
 	curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
 	echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
